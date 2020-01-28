@@ -46,6 +46,16 @@ final_df = pd.merge(left=final_df,
 # Remove records that do not have a rating
 final_df = final_df[final_df.averageRating.notna()]
 
+# Remove rows with missing genres
+final_df = final_df[final_df.genres.notna()]
+
+# Remove rows with \\N as value
+final_df = final_df[final_df.genres != "\\N"]
+
+# Retrieve primary genre for all genres
+final_df["genre"] = df.genres.map(lambda x: x.split(",")[0])
+final_df.drop(["genres"], axis=1)
+
 # Write to csv file
 final_df.to_csv(get_file_path("consolidated_data.csv"),
                 index=False,
