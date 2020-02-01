@@ -14,7 +14,7 @@ def get_destination_path(tsv_file_name):
     return f"Data.nosync/{tsv_file_name}"
 
 
-def write_to_destination(df, file_name):
+def write_df_as_csv(df, file_name):
     df.to_csv(get_destination_path(file_name),
               index=False,
               header=True)
@@ -106,7 +106,8 @@ print(df.tconst.nunique())
 # Remove invalid records in title.principals
 title_principals_cleaned = remove_invalid_records(df, title_principals,
                                                   get_column_index(title_principals,
-                                                                   "tconst"))
+                                                                   "tconst")
+                                                 )             
 title_principals_cleaned.to_csv(get_destination_path("title.principals.csv"),
                                 index=False,
                                 header=True)
