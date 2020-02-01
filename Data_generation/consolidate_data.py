@@ -97,6 +97,15 @@ log("Dropped genres column")
 df_subset = df.iloc[:5, :]
 print(df.tconst.nunique())
 
+# Remove invalid records in title.principals
+title_principals_cleaned = remove_invalid_records(df, title_principals,
+                                                  get_column_index(title_principals,
+                                                                   "tconst"))
+title_principals_cleaned.to_csv(get_destination_path("title.principals.csv"),
+                                index=False,
+                                header=True)
+
+                                
 # Write to csv file
 df.to_csv(get_destination_path("consolidated_data.csv"),
                 index=False,
@@ -107,6 +116,7 @@ df_subset.to_csv(get_destination_path("consolidated_data_subset.csv"),
                                 index=False,
                                 header=True)
 log("Stored clean subset data as consolidated_data_subset.csv")
+
 
 """
 valid_indices = []
