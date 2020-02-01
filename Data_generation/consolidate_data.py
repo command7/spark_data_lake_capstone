@@ -1,17 +1,27 @@
 import pandas as pd
 
+
 def get_file_path(tsv_file_name):
     return f"../../Data.nosync/{tsv_file_name}"
+
 
 def open_file(tsv_file_name):
     file_df = pd.read_csv(get_file_path(tsv_file_name), sep="\t")
     return file_df
 
+
 def get_destination_path(tsv_file_name):
     return f"Data.nosync/{tsv_file_name}"
 
+
 def log(print_msg):
     print(print_msg)
+
+
+def convert_list_to_dict(input_list):
+    converted_dict = {input_list[i]: 1 for i in range(0, len(input_list))}
+    return converted_dict
+
 
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
@@ -61,3 +71,14 @@ df_subset.to_csv(get_destination_path("consolidated_data_subset.csv"),
                                 index=False,
                                 header=True)
 log("Stored clean subset data as consolidated_data_subset.csv")
+
+"""
+valid_indices = []
+Add clean tconsts to defaultdict()
+For each row in other file
+        if row_tconst in valid_tconsts:
+            continue
+        else
+            add to invalid_indices
+Drop invalid indices from the df
+"""
