@@ -39,6 +39,25 @@ def get_column_index(df, req_column_name):
     return req_column_index
 
 
+def remove_invalid_records(valid_df, unclean_df, match_column_index):
+    log("Removing invalid indices.")
+    invalid_indices = list()
+    valid_tconsts = get_unique_values(valid_df, "tconst")
+    valid_tconsts_dict = convert_list_to_dict(valid_tconsts)
+    total_records = unclean_df.shape[0]
+    current_record_number = 0
+    for row_index, row_values in unclean_df.iterrows():
+        current_record_number += 1
+        percentage_completed = (current_record_number/total_records) * 100
+        if percentage_completed % 5 == 0:
+            log(f"{percentage_completed}% completed.")
+        if valid_tconsts_dict.get(row_values[match_column_index]) is None:
+            invalid_indices.append(row_index)
+        else:
+            continue
+    return unclean_df.drop(invalid_indices)
+
+
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
 title_crew = open_file("title.crew.tsv")
@@ -47,6 +66,7 @@ name_basics = open_file("name.basics.tsv")
 log("Name.basics opened")
 title_ratings = open_file("title.ratings.tsv")
 log("Title.ratings opened")
+
 
 # Merging to obtain title ratings
 df = pd.merge(left=title_basics,
