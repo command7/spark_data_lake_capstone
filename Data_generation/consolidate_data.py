@@ -1,4 +1,4 @@
-import pandas as import pd
+import pandas as pd
 
 def get_file_path(tsv_file_name):
     return f"../../Data.nosync/{tsv_file_name}"
@@ -10,53 +10,76 @@ def open_file(tsv_file_name):
 def get_destination_path(tsv_file_name):
     return f"Data.nosync/{tsv_file_name}"
 
+def log(print_msg):
+    print(print_msg)
+
 title_basics = open_file("title.basics.tsv")
+log("Title.basics opened")
 title_crew = open_file("title.crew.tsv")
+log("Title.Crew opened")
 name_basics = open_file("name.basics.tsv")
+log("Name.basics opened")
 title_ratings = open_file("title.ratings.tsv")
+log("Title.ratings opened")
 
 # Merging title names with their director and writer identifiers
-final_df = pd.merge(left=title_basics,
-                    right=title_crew,
-                    how="left",
-                    on="tconst")
+# df = pd.merge(left=title_basics,
+#                     right=title_crew,
+#                     how="left",
+#                     on="tconst")
 
 # Merging to obtain director details
-final_df = pd.merge(left=final_df,
-                    right=name_basics,
-                    how="left",
-                    left_on="directors",
-                    right_on="nconst",
-                    suffixes=("", "_director"))
+# df = pd.merge(left=df,
+#                     right=name_basics,
+#                     how="left",
+#                     left_on="directors",
+#                     right_on="nconst",
+#                     suffixes=("", "_director"))
 
 # Merging to obtain writer details
-final_df = pd.merge(left=final_df,
-                    right=name_basics,
-                    how="left",
-                    left_on="writers",
-                    right_on="nconst",
-                    suffixes=("_director", "_writer"))
+# df = pd.merge(left=df,
+#                     right=name_basics,
+#                     how="left",
+#                     left_on="writers",
+#                     right_on="nconst",
+#                     suffixes=("_director", "_writer"))
 
 # Merging to obtain title ratings
-final_df = pd.merge(left=final_df,
-                    right=title_ratings,
-                    on="tconst",
-                    how="left")
+df = pd.merge(left=title_basics,
+              right=title_ratings,
+              on="tconst",
+              how="left")
+log("Merged title.basics with ratings.")
 
 # Remove records that do not have a rating
-final_df = final_df[final_df.averageRating.notna()]
+df = df[df.averageRating.notna()]
+log("Removed records with no ratings.")
 
 # Remove rows with missing genres
-final_df = final_df[final_df.genres.notna()]
+df = df[df.genres.notna()]
+log("Removed records that do not have a genre assigned to it.")
 
 # Remove rows with \\N as value
-final_df = final_df[final_df.genres != "\\N"]
+df = df[df.genres != "\\N"]
+log("Removed records that have \"\\\\N\" as value")
 
 # Retrieve primary genre for all genres
-final_df["genre"] = df.genres.map(lambda x: x.split(",")[0])
-final_df.drop(["genres"], axis=1)
+df["genre"] = df.genres.map(lambda x: x.split(",")[0])
+log("Removed secondary genres and assigned primary genre to genre column.")
+
+df.drop(["genres"], axis=1)
+log("Dropped genres column")
+
+df_subset = df.iloc[:5, :]
+print(df.tconst.nunique())
 
 # Write to csv file
-final_df.to_csv(get_file_path("consolidated_data.csv"),
+df.to_csv(get_destination_path("consolidated_data.csv"),
                 index=False,
                 header=True)
+log("Stored clean data as consolidated_data.csv")
+
+df_subset.to_csv(get_destination_path("consolidated_data_subset.csv"),
+                                index=False,
+                                header=True)
+log("Stored clean subset data as consolidated_data_subset.csv")
