@@ -24,7 +24,7 @@ def convert_list_to_dict(input_list):
 
 
 def get_unique_values(df, column_name):
-    return list(df["column_name"].unique())
+    return list(df[column_name].unique())
 
 
 def get_column_index(df, req_column_name):
