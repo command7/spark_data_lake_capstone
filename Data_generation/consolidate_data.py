@@ -14,6 +14,12 @@ def get_destination_path(tsv_file_name):
     return f"Data.nosync/{tsv_file_name}"
 
 
+def write_to_destination(df, file_name):
+    df.to_csv(get_destination_path(file_name),
+              index=False,
+              header=True)
+
+
 def log(print_msg):
     print(print_msg)
 
@@ -105,7 +111,7 @@ title_principals_cleaned.to_csv(get_destination_path("title.principals.csv"),
                                 index=False,
                                 header=True)
 
-                                
+
 # Write to csv file
 df.to_csv(get_destination_path("consolidated_data.csv"),
                 index=False,
