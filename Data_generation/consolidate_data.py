@@ -109,10 +109,11 @@ df_subset = df.iloc[:5, :]
 print(df.tconst.nunique())
 
 # Remove invalid records in title.principals
-title_principals_cleaned = remove_invalid_records(df, title_principals,
-                                                  get_column_index(title_principals,
-                                                                   "tconst")
-                                                 )
+clean_file(df,
+           title_principals,
+           get_column_index(title_principals,
+                            "tconst"),
+           "title_principals.csv")
 
 
 # Write to csv file
