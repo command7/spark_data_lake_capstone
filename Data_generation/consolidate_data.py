@@ -27,6 +27,18 @@ def get_unique_values(df, column_name):
     return list(df["column_name"].unique())
 
 
+def get_column_index(df, req_column_name):
+    req_column_index = None
+    df_columns = list(df.columns)
+    for column_index, each_column in enumerate(df_columns):
+        if each_column == req_column_name:
+            req_column_index = column_index
+            break
+    if req_column_index is None:
+        raise Exception
+    return req_column_index
+
+
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
 title_crew = open_file("title.crew.tsv")
