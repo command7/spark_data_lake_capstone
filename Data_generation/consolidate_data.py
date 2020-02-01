@@ -23,6 +23,10 @@ def convert_list_to_dict(input_list):
     return converted_dict
 
 
+def get_unique_values(df, column_name):
+    return list(df["column_name"].unique())
+
+
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
 title_crew = open_file("title.crew.tsv")
