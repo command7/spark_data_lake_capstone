@@ -64,6 +64,11 @@ def remove_invalid_records(valid_df, unclean_df, match_column_index):
     return unclean_df.drop(invalid_indices)
 
 
+def clean_file(valid_df, unclean_df, match_column_index, destination_file_name):
+    clean_df = remove_invalid_records(valid_df, unclean_df, match_column_index)
+    write_df_as_csv(clean_df, "destination_file_name")
+
+
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
 title_crew = open_file("title.crew.tsv")
@@ -107,10 +112,7 @@ print(df.tconst.nunique())
 title_principals_cleaned = remove_invalid_records(df, title_principals,
                                                   get_column_index(title_principals,
                                                                    "tconst")
-                                                 )             
-title_principals_cleaned.to_csv(get_destination_path("title.principals.csv"),
-                                index=False,
-                                header=True)
+                                                 )
 
 
 # Write to csv file
