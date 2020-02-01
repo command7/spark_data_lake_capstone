@@ -22,28 +22,6 @@ log("Name.basics opened")
 title_ratings = open_file("title.ratings.tsv")
 log("Title.ratings opened")
 
-# Merging title names with their director and writer identifiers
-# df = pd.merge(left=title_basics,
-#                     right=title_crew,
-#                     how="left",
-#                     on="tconst")
-
-# Merging to obtain director details
-# df = pd.merge(left=df,
-#                     right=name_basics,
-#                     how="left",
-#                     left_on="directors",
-#                     right_on="nconst",
-#                     suffixes=("", "_director"))
-
-# Merging to obtain writer details
-# df = pd.merge(left=df,
-#                     right=name_basics,
-#                     how="left",
-#                     left_on="writers",
-#                     right_on="nconst",
-#                     suffixes=("_director", "_writer"))
-
 # Merging to obtain title ratings
 df = pd.merge(left=title_basics,
               right=title_ratings,
