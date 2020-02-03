@@ -120,21 +120,23 @@ df_subset = df.iloc[:5, :]
 print(df.tconst.nunique())
 
 # Remove invalid records in title.principals
+title_princ_tconst_col_index = get_column_index(title_principals,
+                                                "tconst")
 clean_file(df,
            "tconst",
            title_principals,
-           get_column_index(title_principals,
-                            "tconst"),
+           title_princ_tconst_col_index,
            "title_principals.csv",
            sort=True,
            sort_on="tconst")
 
 # Remove invalid records in title.akas
+title_akas_titleid_column_index = get_column_index(title_akas,
+                                                   "titleId")
 clean_file(df,
            "nconst",
            title_akas,
-           get_column_index(title_akas,
-                            "titleId"),
+           title_akas_titleid_column_index,
            "title_akas.csv",
            sort=True,
            sort_on="tconst"
@@ -143,10 +145,11 @@ clean_file(df,
 
 # Remove invalid records in name.basics
 clean_principals_df = pd.read_csv("Data/title_principals.csv")
+name_basics_nconst_col_index = get_column_index(name_basics,
+                                                "nconst")
 clean_file(clean_principals_df,
            "nconst",
-           get_column_index(name_basics,
-                            "nconst"),
+           name_basics_nconst_col_index,
            "name_basics.csv",
            sort=True,
            sort_on="nconst")
@@ -172,15 +175,3 @@ title_rating_columns = ["tconst",
 df_title_ratings = df[title_rating_columns]
 write_df_as_csv(df_title_ratings, "title_ratings.csv",
                 sort=True, sort_on="tconst")
-
-
-# Write to csv file
-df.to_csv(get_destination_path("consolidated_data.csv"),
-                index=False,
-                header=True)
-log("Stored clean data as consolidated_data.csv")
-
-df_subset.to_csv(get_destination_path("consolidated_data_subset.csv"),
-                                index=False,
-                                header=True)
-log("Stored clean subset data as consolidated_data_subset.csv")
