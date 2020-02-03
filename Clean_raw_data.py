@@ -10,8 +10,8 @@ def open_file(tsv_file_name):
     return file_df
 
 
-def get_destination_path(tsv_file_name):
-    return f"Data.nosync/{tsv_file_name}"
+def get_destination_path(dest_file_name):
+    return f"Data/{dest_file_name}"
 
 
 def write_df_as_csv(method_df, file_name, sort=False, sort_on=None):
