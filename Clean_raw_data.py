@@ -47,10 +47,11 @@ def get_column_index(df, req_column_name):
     return req_column_index
 
 
-def remove_invalid_records(valid_df, unclean_df, match_column_index):
+def remove_invalid_records(valid_df, valid_df_column_name,
+                           unclean_df, match_column_index):
     log("Removing invalid indices.")
     invalid_indices = list()
-    valid_tconsts = get_unique_values(valid_df, "tconst")
+    valid_tconsts = get_unique_values(valid_df, valid_df_column_name)
     valid_tconsts_dict = convert_list_to_dict(valid_tconsts)
     total_records = unclean_df.shape[0]
     current_record_number = 0
@@ -66,9 +67,11 @@ def remove_invalid_records(valid_df, unclean_df, match_column_index):
     return unclean_df.drop(invalid_indices)
 
 
-def clean_file(valid_df, unclean_df, match_column_index, destination_file_name
-               sort, sort_on):
-    clean_df = remove_invalid_records(valid_df, unclean_df, match_column_index)
+def clean_file(valid_df, valid_df_column_name,
+               unclean_df, match_column_index,
+               destination_file_name, sort, sort_on):
+    clean_df = remove_invalid_records(valid_df, valid_df_column_name,
+                                      unclean_df, match_column_index)
     write_df_as_csv(clean_df, destination_file_name, sort, sort_on)
 
 
@@ -115,6 +118,7 @@ print(df.tconst.nunique())
 
 # Remove invalid records in title.principals
 clean_file(df,
+           "tconst",
            title_principals,
            get_column_index(title_principals,
                             "tconst"),
@@ -124,6 +128,7 @@ clean_file(df,
 
 # Remove invalid records in title.akas
 clean_file(df,
+           "tconst",
            title_akas,
            get_column_index(title_akas,
                             "titleId"),
@@ -131,6 +136,7 @@ clean_file(df,
            sort=True,
            sort_on="tconst"
            )
+
 
 # Split into title.basics from df
 title_basics_columns = ["tconst",
