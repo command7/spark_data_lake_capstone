@@ -77,7 +77,7 @@ def clean_file(valid_df, valid_df_column_name,
                                       unclean_df, match_column_index)
     write_df_as_csv(clean_df, destination_file_name, sort, sort_on)
 
-
+log("Opening files")
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
 title_crew = open_file("title.crew.tsv")
@@ -89,38 +89,45 @@ log("Title.ratings opened")
 title_akas = open_file("title.akas.tsv")
 log("Title.akas opened")
 title_principals = open_file("title.principals.tsv")
+log("Title.principals opened")
+log("All files opened \n\n")
 
 
 # Merging to obtain title ratings
+log("Merging title.basics with ratings.")
 df = pd.merge(left=title_basics,
               right=title_ratings,
               on="tconst",
               how="left")
-log("Merged title.basics with ratings.")
+log("Merge successful\n\n")
+
 
 # Remove records that do not have a rating
+log("Removing records with no ratings.\n")
 df = df[df.averageRating.notna()]
-log("Removed records with no ratings.")
+log("Remove successful\n\n")
 
 # Remove rows with missing genres
+log("Removing records that do not have a genre assigned to it.\n")
 df = df[df.genres.notna()]
-log("Removed records that do not have a genre assigned to it.")
+log("Remove successful\n\n")
 
 # Remove rows with \\N as value
+log("Removing records that have \"\\\\N\" as value")
 df = df[df.genres != "\\N"]
-log("Removed records that have \"\\\\N\" as value")
+log("Remove successful\n\n")
 
 # Retrieve primary genre for all genres
+log("Removing secondary genres and assigned primary genre to genre column.")
 df["genre"] = df.genres.map(lambda x: x.split(",")[0])
-log("Removed secondary genres and assigned primary genre to genre column.")
+log("Remove successful\n\n")
 
+log("Dropping genres column")
 df.drop(["genres"], axis=1)
-log("Dropped genres column")
-
-df_subset = df.iloc[:5, :]
-print(df.tconst.nunique())
+log("Drop successful\n\n")
 
 # Remove invalid records in title.principals
+log("Removing invalid records from title.principals")
 title_princ_tconst_col_index = get_column_index(title_principals,
                                                 "tconst")
 clean_file(df,
@@ -130,8 +137,10 @@ clean_file(df,
            "title_principals.csv",
            sort=True,
            sort_on="tconst")
+log("Remove successful\n\n")
 
 # Remove invalid records in title.akas
+log("Removing invalid records from title.akas")
 title_akas_titleid_column_index = get_column_index(title_akas,
                                                    "titleId")
 clean_file(df,
@@ -142,9 +151,11 @@ clean_file(df,
            sort=True,
            sort_on="tconst"
            )
+log("Remove successful\n\n")
 
 
 # Remove invalid records in name.basics
+log("Removing invalid records from name.basics")
 clean_principals_df = pd.read_csv("Data/title_principals.csv")
 name_basics_nconst_col_index = get_column_index(name_basics,
                                                 "nconst")
@@ -154,9 +165,11 @@ clean_file(clean_principals_df,
            "name_basics.csv",
            sort=True,
            sort_on="nconst")
+log("Remove successful\n\n")
 
 
 # Split into title.basics from df
+log("Splitting title.basics from cleaned data frame")
 title_basics_columns = ["tconst",
                         "titleType",
                         "primaryTitle",
@@ -168,11 +181,14 @@ title_basics_columns = ["tconst",
 df_title_basics = df[title_basics_columns]
 write_df_as_csv(df_title_basics, "title_basics.csv",
                 sort=True, sort_on="tconst")
+log("Split successful\n\n")
 
 # Split title.ratings from df
+log("Splitting title.ratings from cleaned data frame")
 title_rating_columns = ["tconst",
                         "averageRating",
                         "numVotes"]
 df_title_ratings = df[title_rating_columns]
 write_df_as_csv(df_title_ratings, "title_ratings.csv",
                 sort=True, sort_on="tconst")
+log("Split successful\n\n")
