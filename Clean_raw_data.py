@@ -66,9 +66,10 @@ def remove_invalid_records(valid_df, unclean_df, match_column_index):
     return unclean_df.drop(invalid_indices)
 
 
-def clean_file(valid_df, unclean_df, match_column_index, destination_file_name):
+def clean_file(valid_df, unclean_df, match_column_index, destination_file_name
+               sort, sort_on):
     clean_df = remove_invalid_records(valid_df, unclean_df, match_column_index)
-    write_df_as_csv(clean_df, destination_file_name)
+    write_df_as_csv(clean_df, destination_file_name, sort, sort_on)
 
 
 title_basics = open_file("title.basics.tsv")
@@ -117,14 +118,18 @@ clean_file(df,
            title_principals,
            get_column_index(title_principals,
                             "tconst"),
-           "title_principals.csv")
+           "title_principals.csv",
+           sort=True,
+           sort_on="tconst")
 
 # Remove invalid records in title.akas
 clean_file(df,
            title_akas,
            get_column_index(title_akas,
                             "titleId"),
-           "title_akas.csv"
+           "title_akas.csv",
+           sort=True,
+           sort_on="tconst"
            )
 
 # Split into title.basics from df
