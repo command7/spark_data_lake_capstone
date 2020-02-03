@@ -137,12 +137,16 @@ title_basics_columns = ["tconst",
                         "endYear",
                         "runtimeMinutes"]
 df_title_basics = df[title_basics_columns]
+write_df_as_csv(df_title_basics, "title_basics.csv",
+                sort=True, sort_on="tconst")
 
 # Split title.ratings from df
 title_rating_columns = ["tconst",
                         "averateRating",
                         "numVotes"]
 df_title_ratings = df[title_rating_columns]
+write_df_as_csv(df_title_ratings, "title_ratings.csv",
+                sort=True, sort_on="tconst")
 
 
 # Write to csv file
