@@ -88,6 +88,7 @@ title_ratings = open_file("title.ratings.tsv")
 log("Title.ratings opened")
 title_akas = open_file("title.akas.tsv")
 log("Title.akas opened")
+title_principals = open_file("title.principals.tsv")
 
 
 # Merging to obtain title ratings
