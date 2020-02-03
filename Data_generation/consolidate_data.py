@@ -77,6 +77,8 @@ name_basics = open_file("name.basics.tsv")
 log("Name.basics opened")
 title_ratings = open_file("title.ratings.tsv")
 log("Title.ratings opened")
+title_akas = open_file("title.akas.tsv")
+log("Title.akas opened")
 
 
 # Merging to obtain title ratings
@@ -115,6 +117,15 @@ clean_file(df,
                             "tconst"),
            "title_principals.csv")
 
+# Remove invalid records in title.akas
+clean_file(df,
+           title_akas,
+           get_column_index(title_akas,
+                            "titleId"),
+           "title_akas.csv"
+           )
+
+# Split into title.basics, title.ratings
 
 # Write to csv file
 df.to_csv(get_destination_path("consolidated_data.csv"),
@@ -126,15 +137,3 @@ df_subset.to_csv(get_destination_path("consolidated_data_subset.csv"),
                                 index=False,
                                 header=True)
 log("Stored clean subset data as consolidated_data_subset.csv")
-
-
-"""
-valid_indices = []
-Add clean tconsts to defaultdict()
-For each row in other file
-        if row_tconst in valid_tconsts:
-            continue
-        else
-            add to invalid_indices
-Drop invalid indices from the df
-"""
