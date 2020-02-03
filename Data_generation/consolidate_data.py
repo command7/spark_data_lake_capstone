@@ -125,7 +125,18 @@ clean_file(df,
            "title_akas.csv"
            )
 
-# Split into title.basics, title.ratings
+# Split into title.basics from df
+title_basics_columns = ["tconst",
+                        "titleType",
+                        "primaryTitle",
+                        "originalTitle",
+                        "isAdult",
+                        "startYear",
+                        "endYear",
+                        "runtimeMinutes"]
+df_title_basics = df[title_basics_columns]
+
+# Split title.ratings from df
 title_rating_columns = ["tconst",
                         "averateRating",
                         "numVotes"]
