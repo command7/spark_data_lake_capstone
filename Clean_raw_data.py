@@ -113,19 +113,19 @@ df_subset = df.iloc[:5, :]
 print(df.tconst.nunique())
 
 # Remove invalid records in title.principals
-clean_file(df,
-           title_principals,
-           get_column_index(title_principals,
-                            "tconst"),
-           "title_principals.csv")
+# clean_file(df,
+#            title_principals,
+#            get_column_index(title_principals,
+#                             "tconst"),
+#            "title_principals.csv")
 
 # Remove invalid records in title.akas
-clean_file(df,
-           title_akas,
-           get_column_index(title_akas,
-                            "titleId"),
-           "title_akas.csv"
-           )
+# clean_file(df,
+#            title_akas,
+#            get_column_index(title_akas,
+#                             "titleId"),
+#            "title_akas.csv"
+#            )
 
 # Split into title.basics from df
 title_basics_columns = ["tconst",
@@ -142,7 +142,7 @@ write_df_as_csv(df_title_basics, "title_basics.csv",
 
 # Split title.ratings from df
 title_rating_columns = ["tconst",
-                        "averateRating",
+                        "averageRating",
                         "numVotes"]
 df_title_ratings = df[title_rating_columns]
 write_df_as_csv(df_title_ratings, "title_ratings.csv",
