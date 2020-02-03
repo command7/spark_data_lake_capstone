@@ -128,7 +128,7 @@ clean_file(df,
 
 # Remove invalid records in title.akas
 clean_file(df,
-           "tconst",
+           "nconst",
            title_akas,
            get_column_index(title_akas,
                             "titleId"),
@@ -136,6 +136,17 @@ clean_file(df,
            sort=True,
            sort_on="tconst"
            )
+
+
+# Remove invalid records in name.basics
+clean_principals_df = pd.read_csv("Data/title_principals.csv")
+clean_file(clean_principals_df,
+           "nconst",
+           get_column_index(name_basics,
+                            "nconst"),
+           "name_basics.csv",
+           sort=True,
+           sort_on="nconst")
 
 
 # Split into title.basics from df
