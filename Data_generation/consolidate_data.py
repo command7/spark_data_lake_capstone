@@ -126,6 +126,11 @@ clean_file(df,
            )
 
 # Split into title.basics, title.ratings
+title_rating_columns = ["tconst",
+                        "averateRating",
+                        "numVotes"]
+df_title_ratings = df[title_rating_columns]
+
 
 # Write to csv file
 df.to_csv(get_destination_path("consolidated_data.csv"),
