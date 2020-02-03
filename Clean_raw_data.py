@@ -5,8 +5,11 @@ def get_file_path(tsv_file_name):
     return f"Raw_Data.nosync/{tsv_file_name}"
 
 
-def open_file(tsv_file_name):
-    file_df = pd.read_csv(get_file_path(tsv_file_name), sep="\t")
+def open_file(file_name, csv_file=False):
+    if csv_file == False:
+        file_df = pd.read_csv(get_file_path(file_name), sep="\t")
+    else:
+        file_df = pd.read_csv(get_file_path(file_name))
     return file_df
 
 
