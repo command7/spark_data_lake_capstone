@@ -14,8 +14,10 @@ def get_destination_path(tsv_file_name):
     return f"Data.nosync/{tsv_file_name}"
 
 
-def write_df_as_csv(df, file_name):
-    df.to_csv(get_destination_path(file_name),
+def write_df_as_csv(method_df, file_name, sort=False, sort_on=None):
+    if sort == True:
+        method_df = df.sort_values(sort_on)
+    method_df.to_csv(get_destination_path(file_name),
               index=False,
               header=True)
 
