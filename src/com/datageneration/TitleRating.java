@@ -23,6 +23,10 @@ public class TitleRating {
         return this.fileData;
     }
 
+    public int getNumberOfRecords() {
+        return this.getFileData().size();
+    }
+
     public void setTitleId(String _titleId) {
         this.titleId = _titleId;
     }
