@@ -35,9 +35,9 @@ public class TitleRating {
         return "Data/" + fileToOpen;
     }
 
-    public ArrayList<ArrayList> openCsvFile(String filePathToOpen) {
+    public ArrayList<ArrayList> openCsvFile() {
         // Check if file is present
-        String pathToCsvFile = this.getFilePath(filePathToOpen);
+        String pathToCsvFile = this.getFilePath(this.getFileName());
         ArrayList<ArrayList> fileData = new ArrayList<ArrayList>();
         String dataLine;
         try {
@@ -55,5 +55,7 @@ public class TitleRating {
         catch (Exception ex) {}
         return fileData;
     }
+
+
 
 }
