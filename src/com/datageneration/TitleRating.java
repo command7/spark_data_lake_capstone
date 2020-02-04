@@ -45,6 +45,14 @@ public class TitleRating {
         return "Data/" + fileToOpen;
     }
 
+    public ArrayList getItemFromFile(int itemIndex) {
+        return this.getFileData().get(itemIndex);
+    }
+
+    public String getTitleIdAtIndex(int itemIndex) {
+        return String.valueOf(this.getItemFromFile(itemIndex).get(0));
+    }
+
     public void openCsvFile() {
         // Check if file is present
         String pathToCsvFile = this.getFilePath(this.getFileName());
@@ -64,10 +72,13 @@ public class TitleRating {
         catch (Exception ex) {};
     }
 
+
+
+
     public static void main(String[] args) {
         TitleRating test = new TitleRating("tt0000001");
-        ArrayList<ArrayList> temp = test.openCsvFile();
-        System.out.println(temp);
+        test.openCsvFile();
+        System.out.println(test.getFileData());
     }
 
 }
