@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class TitleRating {
     private String titleId;
     private String fileName;
+    private ArrayList<ArrayList> fileData;
 
 
     public String getTitleId() {
@@ -18,6 +19,10 @@ public class TitleRating {
         return this.fileName;
     }
 
+    public ArrayList<ArrayList> getFileData() {
+        return this.fileData;
+    }
+
     public void setTitleId(String _titleId) {
         this.titleId = _titleId;
     }
@@ -26,19 +31,23 @@ public class TitleRating {
         this.fileName = _fileName;
     }
 
+    public void setFileData(ArrayList<ArrayList> _fileData) {
+        this.fileData = _fileData;
+    }
+
     public TitleRating(String _titleId) {
         this.setTitleId(_titleId);
         this.setFileName("title_ratings.csv");
+        fileData = new ArrayList<ArrayList>();
     }
 
     public String getFilePath(String fileToOpen) {
         return "Data/" + fileToOpen;
     }
 
-    public ArrayList<ArrayList> openCsvFile() {
+    public void openCsvFile() {
         // Check if file is present
         String pathToCsvFile = this.getFilePath(this.getFileName());
-        ArrayList<ArrayList> fileData = new ArrayList<ArrayList>();
         String dataLine;
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsvFile));
@@ -52,10 +61,13 @@ public class TitleRating {
             }
             csvReader.close();
         }
-        catch (Exception ex) {}
-        return fileData;
+        catch (Exception ex) {};
     }
 
-
+    public static void main(String[] args) {
+        TitleRating test = new TitleRating("tt0000001");
+        ArrayList<ArrayList> temp = test.openCsvFile();
+        System.out.println(temp);
+    }
 
 }
