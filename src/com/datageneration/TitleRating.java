@@ -35,5 +35,25 @@ public class TitleRating {
         return "Data/" + fileToOpen;
     }
 
+    public ArrayList<ArrayList> openCsvFile(String filePathToOpen) {
+        // Check if file is present
+        String pathToCsvFile = this.getFilePath(filePathToOpen);
+        ArrayList<ArrayList> fileData = new ArrayList<ArrayList>();
+        String dataLine;
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsvFile));
+            while ((dataLine = csvReader.readLine()) != null) {
+                ArrayList rowDataList = new ArrayList();
+                String [] rowDataArray = dataLine.split(",");
+                for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
+                    rowDataList.add(rowDataArray[rowDataArrayIndex]);
+                }
+                fileData.add(rowDataList);
+            }
+            csvReader.close();
+        }
+        catch (Exception ex) {}
+        return fileData;
+    }
 
 }
