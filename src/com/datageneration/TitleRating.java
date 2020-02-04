@@ -13,7 +13,7 @@ public class TitleRating {
     public TitleRating(String _titleId) {
         this.setTitleId(_titleId);
         this.setFileName("title_ratings.csv");
-        fileData = new ArrayList<ArrayList>();
+        this.initializeFileData();
         this.openCsvFile();
         this.filter();
     }
@@ -34,18 +34,6 @@ public class TitleRating {
         return this.getFileData().size();
     }
 
-    public void setTitleId(String _titleId) {
-        this.titleId = _titleId;
-    }
-
-    public void setFileName(String _fileName) {
-        this.fileName = _fileName;
-    }
-
-    public void setFileData(ArrayList<ArrayList> _fileData) {
-        this.fileData = _fileData;
-    }
-
     public String getFilePath(String fileToOpen) {
         return "Data/" + fileToOpen;
     }
@@ -56,6 +44,22 @@ public class TitleRating {
 
     public String getTitleIdAtIndex(int itemIndex) {
         return String.valueOf(this.getItemFromFile(itemIndex).get(0));
+    }
+
+    public String initializeFileData() {
+        this.fileData = new ArrayList<ArrayList>();
+    }
+
+    public void setTitleId(String _titleId) {
+        this.titleId = _titleId;
+    }
+
+    public void setFileName(String _fileName) {
+        this.fileName = _fileName;
+    }
+
+    public void setFileData(ArrayList<ArrayList> _fileData) {
+        this.fileData = _fileData;
     }
 
     public void openCsvFile() {
@@ -76,7 +80,6 @@ public class TitleRating {
         }
         catch (Exception ex) {};
     }
-
 
     public void filter() {
         String filterId = this.getTitleId();
@@ -102,6 +105,7 @@ public class TitleRating {
         }
         if (!elementFound) {
             // no element found
+
         }
         else {
             // Find range of indices with this element
