@@ -141,11 +141,22 @@ public class TitleRating {
         }
     }
 
+    public String toString() {
+        String outputString = "";
+        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++) {
+            ArrayList recordData = this.getItemFromFile(recordIndex);
+            for (int recordDataIndex = 0; recordDataIndex < recordData.size(); recordDataIndex++) {
+                outputString += (String)recordData.get(recordDataIndex) + " ";
+            }
+            outputString += "\n";
+        }
+        return outputString;
+    }
+
 
     public static void main(String[] args) {
         TitleRating test = new TitleRating("tt0000001");
-        test.openCsvFile();
-        System.out.println(test.getFileData());
+
     }
 
 }
