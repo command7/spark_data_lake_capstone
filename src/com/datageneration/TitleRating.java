@@ -77,6 +77,68 @@ public class TitleRating {
     }
 
 
+    public void filter() {
+        String filterId = this.getTitleId();
+        int startingPointer = 0;
+        int endingPointer = this.getFileData().size() - 1;
+        boolean elementFound = false;
+        int foundElementIndex = -1;
+        int midPointer;
+        while (startingPointer < endingPointer) {
+            midPointer = (endingPointer - startingPointer) / 2;
+            String currentTitleId = this.getTitleIdAtIndex(midPointer);
+            if (filterId.equals(currentTitleId)) {
+                elementFound = true;
+                foundElementIndex = midPointer;
+                break;
+            }
+            else if (currentTitleId.compareTo(filterId) > 0) {
+                startingPointer = midPointer + 1;
+            }
+            else {
+                endingPointer = midPointer - 1;
+            }
+        }
+        if (!elementFound) {
+            // no element found
+        }
+        else {
+            // Find range of indices with this element
+            int elementRangeStartIndex = foundElementIndex;
+            int elementRangeEndIndex = foundElementIndex;
+
+            // Find range starting
+            while (elementRangeStartIndex > 0) {
+                int previousElementRangeIndex = elementRangeStartIndex - 1;
+                String previousTitleId = this.getTitleIdAtIndex(previousElementRangeIndex);
+                if (!previousTitleId.equals(filterId)) {
+                    break;
+                }
+                else {
+                    elementRangeStartIndex = previousElementRangeIndex;
+                }
+            }
+
+            // Find range end
+            while(elementRangeEndIndex < this.getNumberOfRecords()) {
+                int nextElementRangeIndex = elementRangeEndIndex + 1;
+                String nextTitleId = this.getTitleIdAtIndex(nextElementRangeIndex);
+                if (!nextTitleId.equals(filterId)) {
+                    break;
+                }
+                else {
+                    elementRangeEndIndex = nextElementRangeIndex;
+                }
+            }
+
+            ArrayList<ArrayList> filteredFileData = new ArrayList<ArrayList>();
+            for(int recordIndex = elementRangeStartIndex; recordIndex <= elementRangeEndIndex; recordIndex++) {
+                filteredFileData.add(this.getItemFromFile(recordIndex));
+            }
+
+            this.setFileData(filteredFileData);
+        }
+    }
 
 
     public static void main(String[] args) {
