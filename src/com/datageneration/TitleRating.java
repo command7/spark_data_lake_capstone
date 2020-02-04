@@ -10,6 +10,13 @@ public class TitleRating {
     private String fileName;
     private ArrayList<ArrayList> fileData;
 
+    public TitleRating(String _titleId) {
+        this.setTitleId(_titleId);
+        this.setFileName("title_ratings.csv");
+        fileData = new ArrayList<ArrayList>();
+        this.openCsvFile();
+        this.filter();
+    }
 
     public String getTitleId() {
         return this.titleId;
@@ -37,12 +44,6 @@ public class TitleRating {
 
     public void setFileData(ArrayList<ArrayList> _fileData) {
         this.fileData = _fileData;
-    }
-
-    public TitleRating(String _titleId) {
-        this.setTitleId(_titleId);
-        this.setFileName("title_ratings.csv");
-        fileData = new ArrayList<ArrayList>();
     }
 
     public String getFilePath(String fileToOpen) {
