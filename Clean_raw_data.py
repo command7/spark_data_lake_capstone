@@ -80,16 +80,10 @@ def clean_file(valid_df, valid_df_column_name,
 log("Opening files")
 title_basics = open_file("title.basics.tsv")
 log("Title.basics opened")
-title_crew = open_file("title.crew.tsv")
-log("Title.Crew opened")
-name_basics = open_file("name.basics.tsv")
-log("Name.basics opened")
+# title_crew = open_file("title.crew.tsv")
+# log("Title.Crew opened")
 title_ratings = open_file("title.ratings.tsv")
 log("Title.ratings opened")
-title_akas = open_file("title.akas.tsv")
-log("Title.akas opened")
-title_principals = open_file("title.principals.tsv")
-log("Title.principals opened")
 log("All files opened \n\n")
 
 
@@ -101,6 +95,8 @@ df = pd.merge(left=title_basics,
               how="left")
 log("Merge successful\n\n")
 
+del title_basics
+del title_ratings
 
 # Remove records that do not have a rating
 log("Removing records with no ratings.\n")
@@ -127,6 +123,9 @@ df.drop(["genres"], axis=1)
 log("Drop successful\n\n")
 
 # Remove invalid records in title.principals
+title_principals = open_file("title.principals.tsv")
+log("Title.principals opened")
+
 log("Removing invalid records from title.principals")
 title_princ_tconst_col_index = get_column_index(title_principals,
                                                 "tconst")
@@ -139,12 +138,18 @@ clean_file(df,
            sort_on="tconst")
 log("Remove successful\n\n")
 
+del title_principals
+
+
+title_akas = open_file("title.akas.tsv")
+log("Title.akas opened")
+
 # Remove invalid records in title.akas
 log("Removing invalid records from title.akas")
 title_akas_titleid_column_index = get_column_index(title_akas,
                                                    "titleId")
 clean_file(df,
-           "nconst",
+           "tconst",
            title_akas,
            title_akas_titleid_column_index,
            "title_akas.csv",
@@ -152,10 +157,12 @@ clean_file(df,
            sort_on="tconst"
            )
 log("Remove successful\n\n")
-
+del title_akas
 
 # Remove invalid records in name.basics
 log("Removing invalid records from name.basics")
+name_basics = open_file("name.basics.tsv")
+log("Name.basics opened")
 clean_principals_df = pd.read_csv("Data/title_principals.csv")
 name_basics_nconst_col_index = get_column_index(name_basics,
                                                 "nconst")
@@ -166,6 +173,7 @@ clean_file(clean_principals_df,
            sort=True,
            sort_on="nconst")
 log("Remove successful\n\n")
+del name_basics
 
 
 # Split into title.basics from df
