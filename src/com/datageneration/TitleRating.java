@@ -3,6 +3,7 @@ package com.datageneration;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class TitleRating {
     private String titleId;
@@ -30,6 +31,9 @@ public class TitleRating {
         this.setFileName("title_ratings.csv");
     }
 
+    public String getFilePath(String fileToOpen) {
+        return "Data/" + fileToOpen;
+    }
 
 
 }
