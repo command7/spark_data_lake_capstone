@@ -104,8 +104,8 @@ public class TitleRating {
             }
         }
         if (!elementFound) {
-            // no element found
-
+            // No such element found
+            this.initializeFileData();
         }
         else {
             // Find range of indices with this element
