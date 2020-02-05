@@ -152,40 +152,7 @@ public class TitleRating {
             this.initializeFileData();
         }
         else {
-            // Find range of indices with this element
-            int elementRangeStartIndex = foundElementIndex;
-            int elementRangeEndIndex = foundElementIndex;
-
-            // Find range starting
-            while (elementRangeStartIndex > 0) {
-                int previousElementRangeIndex = elementRangeStartIndex - 1;
-                String previousTitleId = this.getTitleIdAtIndex(previousElementRangeIndex);
-                if (!previousTitleId.equals(filterId)) {
-                    break;
-                }
-                else {
-                    elementRangeStartIndex = previousElementRangeIndex;
-                }
-            }
-
-            // Find range end
-            while(elementRangeEndIndex < this.getNumberOfRecords()) {
-                int nextElementRangeIndex = elementRangeEndIndex + 1;
-                String nextTitleId = this.getTitleIdAtIndex(nextElementRangeIndex);
-                if (!nextTitleId.equals(filterId)) {
-                    break;
-                }
-                else {
-                    elementRangeEndIndex = nextElementRangeIndex;
-                }
-            }
-
-            ArrayList<ArrayList> filteredFileData = new ArrayList<ArrayList>();
-            for(int recordIndex = elementRangeStartIndex; recordIndex <= elementRangeEndIndex; recordIndex++) {
-                filteredFileData.add(this.getItemFromFile(recordIndex));
-            }
-
-            this.setFileData(filteredFileData);
+            this.updateFilteredData(foundElementIndex);
         }
     }
 
