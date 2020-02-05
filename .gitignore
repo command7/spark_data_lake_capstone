@@ -1,0 +1,21 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/.gitignore
+.idea/.name
+.idea/codeStyles/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.ipynb_checkpoints/
+Backup_Data.zip
+Data/
+Data_Gen.ipynb
+Dependencies/
+Raw_Data.nosync/
+out/
+spark_data_lake_capstone.iml
+src/.DS_Store
+src/com/.DS_Store
+src/com/testing/
