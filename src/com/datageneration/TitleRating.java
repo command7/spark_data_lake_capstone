@@ -178,6 +178,14 @@ public class TitleRating {
         return dataInJson;
     }
 
+    public ArrayList<JSONObject> getDataAsJson() {
+        ArrayList<JSONObject> jsonData = new ArrayList<JSONObject>();
+        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++){
+            jsonData.add(convertToJson(this.getItemFromFile(recordIndex)));
+        }
+        return jsonData;
+    }
+
 
     public static void main(String[] args) {
         TitleRating test = new TitleRating("tt0000001");
