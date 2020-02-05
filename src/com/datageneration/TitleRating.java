@@ -46,7 +46,7 @@ public class TitleRating {
         return String.valueOf(this.getItemFromFile(itemIndex).get(0));
     }
 
-    public String initializeFileData() {
+    public void initializeFileData() {
         this.fileData = new ArrayList<ArrayList>();
     }
 
