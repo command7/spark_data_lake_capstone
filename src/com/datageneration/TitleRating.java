@@ -131,7 +131,18 @@ public class TitleRating {
         return elementRangeEndIndex;
     }
 
+    public void updateFilteredData(int foundElementIndex) {
+        String elementValue = this.getTitleIdAtIndex(foundElementIndex);
+        int elementRangeStartIndex = this.findElementStartingPosition(foundElementIndex, elementValue);
+        int elementRangeEndIndex = this.findElementEndingPosition(foundElementIndex, elementValue);
 
+        ArrayList<ArrayList> filteredFileData = new ArrayList<ArrayList>();
+        for(int recordIndex = elementRangeStartIndex; recordIndex <= elementRangeEndIndex; recordIndex++) {
+            filteredFileData.add(this.getItemFromFile(recordIndex));
+        }
+
+        this.setFileData(filteredFileData);
+    }
 
     public void filter() {
         String filterId = this.getTitleId();
