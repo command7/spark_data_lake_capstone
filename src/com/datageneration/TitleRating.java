@@ -1,5 +1,7 @@
 package com.datageneration;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -166,6 +168,14 @@ public class TitleRating {
             outputString += "\n";
         }
         return outputString;
+    }
+
+    public JSONObject convertToJson(ArrayList<String> rowData) {
+        JSONObject dataInJson = new JSONObject();
+        dataInJson.put("tconst", rowData.get(0));
+        dataInJson.put("averageRating", Double.valueOf(rowData.get(1)));
+        dataInJson.put("numVotes", Integer.valueOf(rowData.get(2)));
+        return dataInJson;
     }
 
 
