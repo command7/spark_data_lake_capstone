@@ -117,6 +117,21 @@ public class TitleRating {
         return elementRangeStartIndex;
     }
 
+    public int findElementEndingPosition(int elementRangeEndIndex, String elementValue) {
+        while(elementRangeEndIndex < this.getNumberOfRecords()) {
+            int nextElementRangeIndex = elementRangeEndIndex + 1;
+            String nextTitleId = this.getTitleIdAtIndex(nextElementRangeIndex);
+            if (!nextTitleId.equals(elementValue)) {
+                break;
+            }
+            else {
+                elementRangeEndIndex = nextElementRangeIndex;
+            }
+        }
+        return elementRangeEndIndex;
+    }
+
+
 
     public void filter() {
         String filterId = this.getTitleId();
