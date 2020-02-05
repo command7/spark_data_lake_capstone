@@ -68,9 +68,14 @@ public class TitleRating {
         // Check if file is present
         String pathToCsvFile = this.getFilePath(this.getFileName());
         String dataLine;
+        int lineNumber = 1;
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsvFile));
             while ((dataLine = csvReader.readLine()) != null) {
+                if (lineNumber == 1) {
+                    lineNumber += 1;
+                    continue;
+                }
                 ArrayList rowDataList = new ArrayList();
                 String [] rowDataArray = dataLine.split(",");
                 for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
@@ -189,7 +194,6 @@ public class TitleRating {
 
     public static void main(String[] args) {
         TitleRating test = new TitleRating("tt0000001");
-
     }
 
 }
