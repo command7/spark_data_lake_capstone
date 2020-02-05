@@ -4,7 +4,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.HashMap;
 import java.util.ArrayList;
 
 public class TitleRating {
@@ -36,7 +35,7 @@ public class TitleRating {
         return this.getFileData().size();
     }
 
-    public String getFilePath(String fileToOpen) {
+    public String getAbsoluteFilePath(String fileToOpen) {
         return "Data/" + fileToOpen;
     }
 
@@ -66,7 +65,7 @@ public class TitleRating {
 
     public void openCsvFile() {
         // Check if file is present
-        String pathToCsvFile = this.getFilePath(this.getFileName());
+        String pathToCsvFile = this.getAbsoluteFilePath(this.getFileName());
         String dataLine;
         int lineNumber = 1;
         try {
