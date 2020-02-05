@@ -86,8 +86,8 @@ public class TitleRating {
         int endingPointer = this.getNumberOfRecords() - 1;
         int foundElementIndex = -1;
         int midPointer;
-        while (startingPointer < endingPointer) {
-            midPointer = (endingPointer - startingPointer) / 2;
+        while (startingPointer <= endingPointer) {
+            midPointer = (endingPointer + startingPointer) / 2;
             String currentTitleId = this.getTitleIdAtIndex(midPointer);
             if (filterId.equals(currentTitleId)) {
                 foundElementIndex = midPointer;
