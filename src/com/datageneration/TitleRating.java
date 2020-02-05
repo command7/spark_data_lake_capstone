@@ -81,18 +81,15 @@ public class TitleRating {
         catch (Exception ex) {};
     }
 
-    public void filter() {
-        String filterId = this.getTitleId();
+    public int binarySearchForItem(String filterId) {
         int startingPointer = 0;
-        int endingPointer = this.getFileData().size() - 1;
-        boolean elementFound = false;
+        int endingPointer = this.getNumberOfRecords() - 1;
         int foundElementIndex = -1;
         int midPointer;
         while (startingPointer < endingPointer) {
             midPointer = (endingPointer - startingPointer) / 2;
             String currentTitleId = this.getTitleIdAtIndex(midPointer);
             if (filterId.equals(currentTitleId)) {
-                elementFound = true;
                 foundElementIndex = midPointer;
                 break;
             }
@@ -103,7 +100,13 @@ public class TitleRating {
                 endingPointer = midPointer - 1;
             }
         }
-        if (!elementFound) {
+        return foundElementIndex;
+    }
+
+    public void filter() {
+        String filterId = this.getTitleId();
+        int foundElementIndex = this.binarySearchForItem(filterId);
+        if (foundElementIndex == -1) {
             // No such element found
             this.initializeFileData();
         }
