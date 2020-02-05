@@ -103,6 +103,21 @@ public class TitleRating {
         return foundElementIndex;
     }
 
+    public int findElementStartingPosition(int elementRangeStartIndex, String elementValue) {
+        while (elementRangeStartIndex > 0) {
+            int previousElementRangeIndex = elementRangeStartIndex - 1;
+            String previousTitleId = this.getTitleIdAtIndex(previousElementRangeIndex);
+            if (!previousTitleId.equals(elementValue)) {
+                break;
+            }
+            else {
+                elementRangeStartIndex = previousElementRangeIndex;
+            }
+        }
+        return elementRangeStartIndex;
+    }
+
+
     public void filter() {
         String filterId = this.getTitleId();
         int foundElementIndex = this.binarySearchForItem(filterId);
