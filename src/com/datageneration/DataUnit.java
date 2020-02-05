@@ -71,7 +71,7 @@ public abstract class DataUnit {
                 ArrayList rowDataList = new ArrayList();
                 String [] rowDataArray = dataLine.split(",");
                 for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
-                    rowDataList.add(rowDataArray[rowDataArrayIndex]);
+                    rowDataList.add(rowDataArray[rowDataArrayIndex].replace("\"", ""));
                 }
                 fileData.add(rowDataList);
             }
