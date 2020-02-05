@@ -168,11 +168,7 @@ public abstract class DataUnit {
     }
 
     public JSONObject convertToJson(ArrayList<String> rowData) {
-        JSONObject dataInJson = new JSONObject();
-        dataInJson.put("tconst", rowData.get(0));
-        dataInJson.put("averageRating", Double.valueOf(rowData.get(1)));
-        dataInJson.put("numVotes", Double.valueOf(rowData.get(2)));
-        return dataInJson;
+        return null;
     }
 
     public ArrayList<JSONObject> getDataAsJson() {
