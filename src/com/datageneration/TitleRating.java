@@ -179,7 +179,7 @@ public class TitleRating {
         JSONObject dataInJson = new JSONObject();
         dataInJson.put("tconst", rowData.get(0));
         dataInJson.put("averageRating", Double.valueOf(rowData.get(1)));
-        dataInJson.put("numVotes", Integer.valueOf(rowData.get(2)));
+        dataInJson.put("numVotes", Double.valueOf(rowData.get(2)));
         return dataInJson;
     }
 
