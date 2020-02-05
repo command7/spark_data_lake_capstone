@@ -39,12 +39,12 @@ public class TitleRating {
         return "Data/" + fileToOpen;
     }
 
-    public ArrayList getItemFromFile(int itemIndex) {
+    public ArrayList getRowDataFromFile(int itemIndex) {
         return this.getFileData().get(itemIndex);
     }
 
     public String getTitleIdAtIndex(int itemIndex) {
-        return String.valueOf(this.getItemFromFile(itemIndex).get(0));
+        return String.valueOf(this.getRowDataFromFile(itemIndex).get(0));
     }
 
     public void initializeFileData() {
@@ -144,7 +144,7 @@ public class TitleRating {
 
         ArrayList<ArrayList> filteredFileData = new ArrayList<ArrayList>();
         for(int recordIndex = elementRangeStartIndex; recordIndex <= elementRangeEndIndex; recordIndex++) {
-            filteredFileData.add(this.getItemFromFile(recordIndex));
+            filteredFileData.add(this.getRowDataFromFile(recordIndex));
         }
 
         this.setFileData(filteredFileData);
@@ -165,7 +165,7 @@ public class TitleRating {
     public String toString() {
         String outputString = "";
         for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++) {
-            ArrayList recordData = this.getItemFromFile(recordIndex);
+            ArrayList recordData = this.getRowDataFromFile(recordIndex);
             for (int recordDataIndex = 0; recordDataIndex < recordData.size(); recordDataIndex++) {
                 outputString += (String)recordData.get(recordDataIndex) + " ";
             }
@@ -185,7 +185,7 @@ public class TitleRating {
     public ArrayList<JSONObject> getDataAsJson() {
         ArrayList<JSONObject> jsonData = new ArrayList<JSONObject>();
         for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++){
-            jsonData.add(convertToJson(this.getItemFromFile(recordIndex)));
+            jsonData.add(convertToJson(this.getRowDataFromFile(recordIndex)));
         }
         return jsonData;
     }
