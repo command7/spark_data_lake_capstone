@@ -18,24 +18,24 @@ public class DataGenerator {
         TitleRating titleRating = new TitleRating("tt0000001");
         ArrayList<JSONObject> titleRatingData = titleRating.getDataAsJson();
 
-//        BasicAWSCredentials awsCredentials = new BasicAWSCredentials("AKIA2ITTLRCLAS6HD47D",
-//                "sgeYc4G/e6W+8TD9yGQX12vx+XPfN6d+ECvhvUeRfXlFAtb1");
-//
-//        AmazonKinesisFirehose firehoseClient = AmazonKinesisFirehoseClient
-//                .builder()
-//                .withRegion(Regions.US_EAST_1)
-//                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-//                .build();
-//
-//        PutRecordRequest putRecordRequest = new PutRecordRequest();
-//        putRecordRequest.setDeliveryStreamName("imdb_data");
-//
-//        for(int dataIndex = 0; dataIndex < titleRatingData.size(); dataIndex++) {
-//            JSONObject jsonRowData = titleRatingData.get(dataIndex);
-//            Record record = new Record().withData(ByteBuffer.wrap(jsonRowData.toString().getBytes()));
-//            putRecordRequest.setRecord(record);
-//            firehoseClient.putRecord(putRecordRequest);
-//        }
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials("AKIA2ITTLRCLAS6HD47D",
+                "e6W+8TD9yGQX12vx+XPfN6d+ECvhvUeRfXlFAtb1");
+
+        AmazonKinesisFirehose firehoseClient = AmazonKinesisFirehoseClient
+                .builder()
+                .withRegion(Regions.US_EAST_1)
+                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
+                .build();
+
+        PutRecordRequest putRecordRequest = new PutRecordRequest();
+        putRecordRequest.setDeliveryStreamName("imdb_data");
+
+        for(int dataIndex = 0; dataIndex < titleRatingData.size(); dataIndex++) {
+            JSONObject jsonRowData = titleRatingData.get(dataIndex);
+            Record record = new Record().withData(ByteBuffer.wrap(jsonRowData.toString().getBytes()));
+            putRecordRequest.setRecord(record);
+            firehoseClient.putRecord(putRecordRequest);
+        }
 
         System.out.println(titleRating);
     }
