@@ -100,7 +100,7 @@ public class TitleRating {
                 foundElementIndex = midPointer;
                 break;
             }
-            else if (currentTitleId.compareTo(filterId) > 0) {
+            else if (currentTitleId.compareTo(filterId) < 0) {
                 startingPointer = midPointer + 1;
             }
             else {
@@ -194,6 +194,7 @@ public class TitleRating {
 
     public static void main(String[] args) {
         TitleRating test = new TitleRating("tt0000001");
+        System.out.println(test);
     }
 
 }
