@@ -86,6 +86,20 @@ public class DataStats {
         return idAtIndex;
     }
 
+    public static void deleteIdFromDatabase(String idToDelete) {
+        try {
+            connect();
+            String sqlString = "DELETE FROM imdb_stats WHERE tconst = ?";
+            PreparedStatement deleteIdStmt = getConnection().prepareStatement(sqlString);
+            deleteIdStmt.setString(1, idToDelete);
+            int deleteStatus = deleteIdStmt.executeUpdate();
+            closeConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println(DataStats.getRemainingRecords());
         System.out.println(DataStats.getIdAtIndex(0));
