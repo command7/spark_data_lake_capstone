@@ -8,12 +8,9 @@ import java.util.ArrayList;
 
 public class DataGenerator {
 
-    public int getRandomNumber(int endingNumber) {
-       return (int)(Math.random()*((endingNumber)+1));
-    }
-
-    public int getNumberTitlesLeft() {
-        return DataStats.getRemainingRecords();
+    public int getRandomNumber() {
+       int endingNumber = DataStats.getRemainingRecords();
+        return (int)(Math.random()*((endingNumber)+1));
     }
 
     public String getTitleIdAtIndex(String fileName, int itemIndex) {
