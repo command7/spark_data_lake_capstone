@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def get_file_path(tsv_file_name):
-    return f"Raw_Data.nosync/{tsv_file_name}"
+    return f"../Raw_Data.nosync/{tsv_file_name}"
 
 
 def open_file(file_name, csv_file=False):
@@ -163,7 +163,7 @@ del title_akas
 log("Removing invalid records from name.basics")
 name_basics = open_file("name.basics.tsv")
 log("Name.basics opened")
-clean_principals_df = pd.read_csv("Data/title_principals.csv")
+clean_principals_df = pd.read_csv("../Data/title_principals.csv")
 name_basics_nconst_col_index = get_column_index(name_basics,
                                                 "nconst")
 clean_file(clean_principals_df,

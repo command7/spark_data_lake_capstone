@@ -1,7 +1,7 @@
 import pandas as pd
 import pymysql
 
-df = pd.read_csv("Data/title_basics.csv",
+df = pd.read_csv("../Data/title_basics.csv",
                   low_memory=False)
 unique_tconsts = list(df.tconst.unique())
 del df
