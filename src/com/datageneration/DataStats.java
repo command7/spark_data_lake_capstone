@@ -21,6 +21,10 @@ public class DataStats {
         return password;
     }
 
+    private Connection getConnection() {
+        return connection;
+    }
+
     public Connection connect() {
         try {
             connection = DriverManager.getConnection(connectionString, getUserName(), getPassword());
@@ -30,4 +34,18 @@ public class DataStats {
         }
         return connection;
     }
+
+    public int closeConnection() {
+        int connectionCloseStatus = 0;
+        try {
+            getConnection().close();
+            connectionCloseStatus = 1;
+            return connectionCloseStatus;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return connectionCloseStatus;
+    }
+
 }
