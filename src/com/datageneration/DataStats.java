@@ -8,23 +8,23 @@ public class DataStats {
     private static String password = "student";
     private static Connection connection;
 
-    private String getConnectionString() {
+    private static String getConnectionString() {
         return connectionString;
     }
 
-    private String getUserName() {
+    private static String getUserName() {
         return userName;
     }
 
-    private String getPassword() {
+    private static String getPassword() {
         return password;
     }
 
-    private Connection getConnection() {
+    private static Connection getConnection() {
         return connection;
     }
 
-    public Connection connect() {
+    public static Connection connect() {
         try {
             connection = DriverManager.getConnection(connectionString, getUserName(), getPassword());
         }
@@ -34,7 +34,7 @@ public class DataStats {
         return connection;
     }
 
-    public int closeConnection() {
+    public static int closeConnection() {
         int connectionCloseStatus = 0;
         try {
             getConnection().close();
@@ -47,7 +47,7 @@ public class DataStats {
         return connectionCloseStatus;
     }
 
-    public int getRemainingRecords() {
+    public static int getRemainingRecords() {
         int numRecordsRemaining = 0;
         try {
             connect();
