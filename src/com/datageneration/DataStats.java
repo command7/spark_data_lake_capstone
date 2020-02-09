@@ -71,12 +71,11 @@ public class DataStats {
         try {
             connect();
             String sqlString = "SELECT tconst FROM imdb_stats LIMIT 1 OFFSET ?";
-            PreparedStatement getRemainingRecordsStmt = getConnection().prepareStatement(sqlString);
-            getRemainingRecordsStmt.setInt(1, idIndex);
-            ResultSet getRemainingRecordsResults = getRemainingRecordsStmt.executeQuery();
-            ResultSetMetaData getRemainingRecordsMetaData = getRemainingRecordsResults.getMetaData();
-            while (getRemainingRecordsResults.next()) {
-                idAtIndex = getRemainingRecordsResults.getString(1);
+            PreparedStatement getIdAtIndexStmt = getConnection().prepareStatement(sqlString);
+            getIdAtIndexStmt.setInt(1, idIndex);
+            ResultSet getIdAtIndexResults = getIdAtIndexStmt.executeQuery();
+            while (getIdAtIndexResults.next()) {
+                idAtIndex = getIdAtIndexResults.getString(1);
             }
             closeConnection();
         }
