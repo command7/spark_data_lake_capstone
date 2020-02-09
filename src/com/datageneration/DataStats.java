@@ -66,4 +66,29 @@ public class DataStats {
         return numRecordsRemaining;
     }
 
+    public static String getIdAtIndex(int idIndex) {
+        String idAtIndex = "";
+        try {
+            connect();
+            String sqlString = "SELECT tconst FROM imdb_stats LIMIT 1 OFFSET ?";
+            PreparedStatement getRemainingRecordsStmt = getConnection().prepareStatement(sqlString);
+            getRemainingRecordsStmt.setInt(1, idIndex);
+            ResultSet getRemainingRecordsResults = getRemainingRecordsStmt.executeQuery();
+            ResultSetMetaData getRemainingRecordsMetaData = getRemainingRecordsResults.getMetaData();
+            while (getRemainingRecordsResults.next()) {
+                idAtIndex = getRemainingRecordsResults.getString(1);
+            }
+            closeConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return idAtIndex;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(DataStats.getRemainingRecords());
+        System.out.println(DataStats.getIdAtIndex(0));
+    }
+
 }
