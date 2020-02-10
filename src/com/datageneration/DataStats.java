@@ -1,6 +1,7 @@
 package com.datageneration;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DataStats {
     private static String connectionString = "jdbc:mysql://localhost:3306/imdb_capstone?useSSL=false";
@@ -85,6 +86,25 @@ public class DataStats {
         return idAtIndex;
     }
 
+    public static ArrayList<String> getNameConstsForTitle(String titleId) {
+        ArrayList<String> nameConsts = new ArrayList<String>();
+        try {
+            connect();
+            String sqlString = "SELECT nconst FROM name_stats where tconst = ?";
+            PreparedStatement getIdAtIndexStmt = getConnection().prepareStatement(sqlString);
+            getIdAtIndexStmt.setString(1, titleId);
+            ResultSet getIdAtIndexResults = getIdAtIndexStmt.executeQuery();
+            while (getIdAtIndexResults.next()) {
+                nameConsts.add(getIdAtIndexResults.getString(1));
+            }
+            closeConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nameConsts;
+    }
+
     public static int deleteIdFromDatabase(String idToDelete) {
         int numRecordsDeleted = -1;
         try {
@@ -104,7 +124,8 @@ public class DataStats {
     public static void main(String[] args) {
         System.out.println(DataStats.getRemainingRecords());
         System.out.println(DataStats.getIdAtIndex(0));
-        System.out.println(DataStats.deleteIdFromDatabase("tt0000001"));
+//        System.out.println(DataStats.deleteIdFromDatabase("tt0000001"));
+        System.out.println(DataStats.getNameConstsForTitle("tt0000105"));
     }
 
 }
