@@ -90,19 +90,23 @@ public class DataGenerator {
         System.out.println("\nTitle Rating\n");
         System.out.println(titleRatingTest);
 
-//        NameBasics nameBasicsTest = new NameBasics(currentTitleId);
-//        ArrayList<JSONObject> nameBasicsData = nameBasicsTest.getDataAsJson();
-//        System.out.println("\nName Basics\n");
-//        System.out.println(nameBasicsTest);
+        NameBasics nameBasicsTest = new NameBasics(currentTitleId);
+        ArrayList<JSONObject> nameBasicsData = nameBasicsTest.getDataAsJson();
+        System.out.println("\nName Basics\n");
+        System.out.println(nameBasicsTest);
 
         this.sendDataToStream(titleBasicsData, "title_basics");
         this.sendDataToStream(titlePrincipalsData, "title_principals");
+        this.sendDataToStream(nameBasicsData, "name_basics");
+        this.sendDataToStream(titleRatingData, "title_ratings");
+
+        DataStats.deleteIdFromDatabase(currentTitleId);
+
     }
 
     public static void main(String[] args) {
         DataGenerator test = new DataGenerator();
-//        test.start();
-
+        test.start();
     }
 
 }
