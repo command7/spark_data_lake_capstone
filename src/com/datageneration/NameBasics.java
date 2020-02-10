@@ -11,7 +11,13 @@ public class NameBasics {
         this.setTitleId(_titleId);
     }
 
+    public String getTitleId() {
+        return this.titleId;
+    }
+
     public void setTitleId(String _titleId) {
         this.titleId = _titleId;
     }
+
+
 }
