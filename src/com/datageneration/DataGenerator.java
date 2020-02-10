@@ -9,11 +9,46 @@ import com.amazonaws.services.kinesisfirehose.model.PutRecordRequest;
 import com.amazonaws.services.kinesisfirehose.model.Record;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
+import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class DataGenerator {
+
+    private BasicAWSCredentials awsCredentials;
+
+    private AmazonKinesisFirehose firehoseClient;
+
+    public DataGenerator() {
+        this.initializeFirehoseClient();
+    }
+
+    private BasicAWSCredentials getAwsCredentials() {
+        return this.awsCredentials;
+    }
+
+    private AmazonKinesisFirehose getFirehoseClient() {
+        return this.firehoseClient;
+    }
+
+    private void initializeFirehoseClient() {
+        Properties awsProperties = new Properties();
+        try {
+            FileInputStream propertyReader = new FileInputStream("awsProperties.properties");
+            awsProperties.load(propertyReader);
+            propertyReader.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        awsCredentials = new BasicAWSCredentials(awsProperties.getProperty("accessKey"),
+                awsProperties.getProperty("secretKey"));
+        firehoseClient = AmazonKinesisFirehoseClient.builder()
+                        .withRegion(Regions.US_EAST_1)
+                        .withCredentials(new AWSStaticCredentialsProvider(this.getAwsCredentials()))
+                        .build();
+    }
 
     public int getRandomNumber() {
        int endingNumber = DataStats.getRemainingRecords();
@@ -82,9 +117,6 @@ public class DataGenerator {
 
         this.sendDataToStream(titleBasicsData, "title_basics");
         this.sendDataToStream(titlePrincipalsData, "title_principals");
-    }
-
-    public DataGenerator() {
     }
 
     public static void main(String[] args) {
