@@ -19,3 +19,4 @@ spark_data_lake_capstone.iml
 src/.DS_Store
 src/com/.DS_Store
 src/com/testing/
+awsProperties.properties
