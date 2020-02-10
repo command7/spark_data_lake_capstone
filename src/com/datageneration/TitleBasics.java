@@ -25,7 +25,8 @@ public class TitleBasics extends DataUnit{
         dataInJson.put("isAdult", Integer.valueOf(rowData.get(4)));
         dataInJson.put("startYear", Integer.valueOf(rowData.get(5)));
         dataInJson.put("endYear", rowData.get(6));
-        dataInJson.put("runTimeMinutes", Integer.valueOf(rowData.get(7)));
+//        dataInJson.put("runTimeMinutes", Integer.valueOf(rowData.get(7)));
+        dataInJson.put("runTimeMinutes", rowData.get(7));
 
         return dataInJson;
     }
