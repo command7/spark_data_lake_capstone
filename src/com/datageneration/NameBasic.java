@@ -4,9 +4,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class NameBasics extends DataUnit{
+public class NameBasic extends DataUnit{
 
-    public NameBasics(String _nameId) {
+    public NameBasic(String _nameId) {
         this.setTitleId(_nameId);
         this.setFileName("name_basics.csv");
         this.initializeFileData();
@@ -27,7 +27,7 @@ public class NameBasics extends DataUnit{
     }
 
     public static void main(String[] args) {
-        NameBasics test = new NameBasics("nm0000001");
+        NameBasic test = new NameBasic("nm0000001");
         System.out.println(test.getDataAsJson());
     }
 }
