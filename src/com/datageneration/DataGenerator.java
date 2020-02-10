@@ -72,36 +72,30 @@ public class DataGenerator {
         }
     }
 
-    public void start() {
-        String currentTitleId = this.getTitleToProcess();
-
-        TitleBasics titleBasicsTest = new TitleBasics(currentTitleId);
+    public void processDataForTitleId(String titleIdToProcess) {
+        TitleBasics titleBasicsTest = new TitleBasics(titleIdToProcess);
         ArrayList<JSONObject> titleBasicsData = titleBasicsTest.getDataAsJson();
-        System.out.println("\nTitle Basics\n");
-        System.out.println(titleBasicsTest);
 
-        TitlePrincipals titlePrincipalsTest = new TitlePrincipals(currentTitleId);
+        TitlePrincipals titlePrincipalsTest = new TitlePrincipals(titleIdToProcess);
         ArrayList<JSONObject> titlePrincipalsData = titlePrincipalsTest.getDataAsJson();
-        System.out.println("\nTitle Principals\n");
-        System.out.println(titlePrincipalsTest);
 
-        TitleRating titleRatingTest = new TitleRating(currentTitleId);
+        TitleRating titleRatingTest = new TitleRating(titleIdToProcess);
         ArrayList<JSONObject> titleRatingData = titleRatingTest.getDataAsJson();
-        System.out.println("\nTitle Rating\n");
-        System.out.println(titleRatingTest);
 
-        NameBasics nameBasicsTest = new NameBasics(currentTitleId);
+        NameBasics nameBasicsTest = new NameBasics(titleIdToProcess);
         ArrayList<JSONObject> nameBasicsData = nameBasicsTest.getDataAsJson();
-        System.out.println("\nName Basics\n");
-        System.out.println(nameBasicsTest);
 
         this.sendDataToStream(titleBasicsData, "title_basics");
         this.sendDataToStream(titlePrincipalsData, "title_principals");
         this.sendDataToStream(nameBasicsData, "name_basics");
         this.sendDataToStream(titleRatingData, "title_ratings");
 
-        DataStats.deleteIdFromDatabase(currentTitleId);
+        DataStats.deleteIdFromDatabase(titleIdToProcess);
+    }
 
+    public void start() {
+        String currentTitleId = this.getTitleToProcess();
+        this.processDataForTitleId(currentTitleId);
     }
 
     public static void main(String[] args) {
