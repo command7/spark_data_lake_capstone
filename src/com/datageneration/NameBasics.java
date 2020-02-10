@@ -2,22 +2,33 @@ package com.datageneration;
 
 import java.util.ArrayList;
 
-public class NameBasics {
+public class NameBasics extends DataUnit{
 
     private String titleId;
-    private ArrayList<ArrayList> fileData;
 
     public NameBasics(String _titleId) {
         this.setTitleId(_titleId);
+        this.initializeFileData();
+        this.gatherInfo();
     }
 
-    public String getTitleId() {
-        return this.titleId;
+    public void addIndividualFileData(ArrayList fileRecord) {
+        this.getFileData().add(fileRecord);
     }
 
-    public void setTitleId(String _titleId) {
-        this.titleId = _titleId;
+    public void gatherInfo() {
+        ArrayList<String> nameIds = DataStats.getNameConstsForTitle(this.getTitleId());
+        for (String nameId: nameIds) {
+            NameBasic individualNameBasic = new NameBasic(nameId);
+            ArrayList<ArrayList> individualFileData = individualNameBasic.getFileData();
+            for (ArrayList rowData: individualFileData) {
+                this.addIndividualFileData(rowData);
+            }
+        }
     }
 
-
+    public static void main(String[] args) {
+        NameBasics test = new NameBasics("tt0000105");
+        System.out.println(test);
+    }
 }
