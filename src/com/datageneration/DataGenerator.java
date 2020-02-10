@@ -48,6 +48,7 @@ public class DataGenerator {
                         .withRegion(Regions.US_EAST_1)
                         .withCredentials(new AWSStaticCredentialsProvider(this.getAwsCredentials()))
                         .build();
+        awsProperties.clear();
     }
 
     public int getRandomNumber() {
