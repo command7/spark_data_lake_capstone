@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class DataStats {
     private static String connectionString = "jdbc:mysql://localhost:3306/imdb_capstone?useSSL=false";
     private static String userName = "root";
-    private static String password = "student";
+    private static String password = "rootstudent";
     private static Connection connection;
 
     private static String getConnectionString() {
@@ -121,11 +121,37 @@ public class DataStats {
         return numRecordsDeleted;
     }
 
+
+    public static void resetDb() {
+        try {
+            connect();
+            String truncateImdbStatsSql = "TRUNCATE TABLE imdb_stats";
+            String truncateNameStatsSql = "TRUNCATE TABLE name_stats";
+            String insertImdbStatsSql = "INSERT INTO imdb_stats (SELECT * FROM imdb_capstone_backup.imdb_stats)";
+            String insertNameStatsSql = "INSERT INTO name_stats (SELECT * FROM imdb_capstone_backup.name_stats)";
+
+            PreparedStatement truncateImdbStatsStatement = getConnection().prepareStatement(truncateImdbStatsSql);
+            PreparedStatement truncateNameStatsStatement = getConnection().prepareStatement(truncateNameStatsSql);
+            PreparedStatement insertImdbStatsStatement = getConnection().prepareStatement(insertImdbStatsSql);
+            PreparedStatement insertNameStatsStatement = getConnection().prepareStatement(insertNameStatsSql);
+
+            getConnection().setAutoCommit(false);
+            truncateImdbStatsStatement.executeUpdate();
+            truncateNameStatsStatement.executeUpdate();
+            insertImdbStatsStatement.executeUpdate();
+            insertNameStatsStatement.executeUpdate();
+            getConnection().commit();
+            getConnection().setAutoCommit(true);
+
+            closeConnection();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println(DataStats.getRemainingRecords());
-        System.out.println(DataStats.getIdAtIndex(0));
-//        System.out.println(DataStats.deleteIdFromDatabase("tt0000001"));
-        System.out.println(DataStats.getNameConstsForTitle("tt0000105"));
+        DataStats.resetDb();
     }
 
 }
