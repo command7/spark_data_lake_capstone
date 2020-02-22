@@ -93,6 +93,13 @@ public class DataGenerator {
         DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
 
+    public void start(int numRecordsToProcess) {
+        for (int recordCount = 0; recordCount < numRecordsToProcess; recordCount++) {
+            String currentTitleId = this.getTitleToProcess();
+            this.processDataForTitleId(currentTitleId);
+        }
+    }
+
     public void start() {
         int remainingRecords = DataStats.getRemainingRecords();
         while (remainingRecords > 0) {
