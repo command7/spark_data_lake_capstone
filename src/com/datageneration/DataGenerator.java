@@ -94,8 +94,12 @@ public class DataGenerator {
     }
 
     public void start() {
-        String currentTitleId = this.getTitleToProcess();
-        this.processDataForTitleId(currentTitleId);
+        int remainingRecords = DataStats.getRemainingRecords();
+        while (remainingRecords > 0) {
+            String currentTitleId = this.getTitleToProcess();
+            this.processDataForTitleId(currentTitleId);
+            remainingRecords = DataStats.getRemainingRecords();
+        }
     }
 
     public static void main(String[] args) {
