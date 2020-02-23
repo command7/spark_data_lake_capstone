@@ -56,6 +56,13 @@ public abstract class DataUnit {
         this.fileData = _fileData;
     }
 
+    public boolean isValidCriteria(String criteriaValue) {
+        if (this.getTitleId().equals(criteriaValue)) {
+            return true;
+        }
+        return false;
+    }
+
     public void openCsvFile() {
         // Check if file is present
         String pathToCsvFile = this.getAbsoluteFilePath(this.getFileName());
@@ -70,89 +77,16 @@ public abstract class DataUnit {
                 }
                 ArrayList rowDataList = new ArrayList();
                 String [] rowDataArray = dataLine.split(",");
-                for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
-                    rowDataList.add(rowDataArray[rowDataArrayIndex].replace("\"", ""));
+                if(this.isValidCriteria(rowDataArray[0])) {
+                    for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
+                        rowDataList.add(rowDataArray[rowDataArrayIndex].replace("\"", ""));
+                    }
+                    fileData.add(rowDataList);
                 }
-                fileData.add(rowDataList);
             }
             csvReader.close();
         }
         catch (Exception ex) {};
-    }
-
-    public int binarySearchForItem(String filterId) {
-        int startingPointer = 0;
-        int endingPointer = this.getNumberOfRecords() - 1;
-        int foundElementIndex = -1;
-        int midPointer;
-        while (startingPointer <= endingPointer) {
-            midPointer = (endingPointer + startingPointer) / 2;
-            String currentTitleId = this.getTitleIdAtIndex(midPointer);
-            if (filterId.equals(currentTitleId)) {
-                foundElementIndex = midPointer;
-                break;
-            }
-            else if (currentTitleId.compareTo(filterId) < 0) {
-                startingPointer = midPointer + 1;
-            }
-            else {
-                endingPointer = midPointer - 1;
-            }
-        }
-        return foundElementIndex;
-    }
-
-    public int findElementStartingPosition(int elementRangeStartIndex, String elementValue) {
-        while (elementRangeStartIndex > 0) {
-            int previousElementRangeIndex = elementRangeStartIndex - 1;
-            String previousTitleId = this.getTitleIdAtIndex(previousElementRangeIndex);
-            if (!previousTitleId.equals(elementValue)) {
-                break;
-            }
-            else {
-                elementRangeStartIndex = previousElementRangeIndex;
-            }
-        }
-        return elementRangeStartIndex;
-    }
-
-    public int findElementEndingPosition(int elementRangeEndIndex, String elementValue) {
-        while(elementRangeEndIndex < this.getNumberOfRecords()) {
-            int nextElementRangeIndex = elementRangeEndIndex + 1;
-            String nextTitleId = this.getTitleIdAtIndex(nextElementRangeIndex);
-            if (!nextTitleId.equals(elementValue)) {
-                break;
-            }
-            else {
-                elementRangeEndIndex = nextElementRangeIndex;
-            }
-        }
-        return elementRangeEndIndex;
-    }
-
-    public void updateFilteredData(int foundElementIndex) {
-        String elementValue = this.getTitleIdAtIndex(foundElementIndex);
-        int elementRangeStartIndex = this.findElementStartingPosition(foundElementIndex, elementValue);
-        int elementRangeEndIndex = this.findElementEndingPosition(foundElementIndex, elementValue);
-
-        ArrayList<ArrayList> filteredFileData = new ArrayList<ArrayList>();
-        for(int recordIndex = elementRangeStartIndex; recordIndex <= elementRangeEndIndex; recordIndex++) {
-            filteredFileData.add(this.getRowDataFromFile(recordIndex));
-        }
-
-        this.setFileData(filteredFileData);
-    }
-
-    public void filter() {
-        String filterId = this.getTitleId();
-        int foundElementIndex = this.binarySearchForItem(filterId);
-        if (foundElementIndex == -1) {
-            // No such element found
-            this.initializeFileData();
-        }
-        else {
-            this.updateFilteredData(foundElementIndex);
-        }
     }
 
     public String toString() {

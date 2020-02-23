@@ -11,7 +11,6 @@ public class NameBasic extends DataUnit{
         this.setFileName("name_basics.csv");
         this.initializeFileData();
         this.openCsvFile();
-        this.filter();
     }
 
     @Override

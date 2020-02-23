@@ -11,7 +11,6 @@ public class TitleRating extends DataUnit {
         this.setFileName("title_ratings.csv");
         this.initializeFileData();
         this.openCsvFile();
-        this.filter();
     }
 
     @Override
