@@ -76,7 +76,7 @@ public abstract class DataUnit {
                     continue;
                 }
                 ArrayList rowDataList = new ArrayList();
-                String [] rowDataArray = dataLine.split(",");
+                String [] rowDataArray = dataLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 if(this.isValidCriteria(rowDataArray[0])) {
                     for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
                         rowDataList.add(rowDataArray[rowDataArrayIndex].replace("\"", ""));
