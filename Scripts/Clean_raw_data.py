@@ -14,7 +14,7 @@ def open_file(file_name, csv_file=False):
 
 
 def get_destination_path(dest_file_name):
-    return f"Data/{dest_file_name}"
+    return f"../Data/{dest_file_name}"
 
 
 def write_df_as_csv(method_df, file_name, sort=False, sort_on=None):
@@ -154,7 +154,7 @@ clean_file(df,
            title_akas_titleid_column_index,
            "title_akas.csv",
            sort=True,
-           sort_on="tconst"
+           sort_on="titleId"
            )
 log("Remove successful\n\n")
 del title_akas
@@ -168,6 +168,7 @@ name_basics_nconst_col_index = get_column_index(name_basics,
                                                 "nconst")
 clean_file(clean_principals_df,
            "nconst",
+           name_basics,
            name_basics_nconst_col_index,
            "name_basics.csv",
            sort=True,
@@ -185,7 +186,8 @@ title_basics_columns = ["tconst",
                         "isAdult",
                         "startYear",
                         "endYear",
-                        "runtimeMinutes"]
+                        "runtimeMinutes",
+                        "genre"]
 df_title_basics = df[title_basics_columns]
 write_df_as_csv(df_title_basics, "title_basics.csv",
                 sort=True, sort_on="tconst")
