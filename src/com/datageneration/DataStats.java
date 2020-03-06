@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DataStats {
-    private static String connectionString = "jdbc:mysql://localhost:3306/imdb_capstone?useSSL=false";
+    private static String connectionString = "jdbc:mysql://imdbcapstone.c93x5cl0e0dz.us-east-1.rds.amazonaws.com:3306/imdb_capstone?useSSL=false";
     private static String userName = "root";
     private static String password = "rootstudent";
     private static Connection connection;
@@ -151,7 +151,7 @@ public class DataStats {
     }
 
     public static void main(String[] args) {
-        DataStats.resetDb();
+        System.out.println(DataStats.getRemainingRecords());
     }
 
 }
