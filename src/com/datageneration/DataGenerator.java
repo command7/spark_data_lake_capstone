@@ -85,10 +85,14 @@ public class DataGenerator {
         NameBasics nameBasicsTest = new NameBasics(titleIdToProcess);
         ArrayList<JSONObject> nameBasicsData = nameBasicsTest.getDataAsJson();
 
+        TitleEpisode titleEpisodeEntity = new TitleEpisode(titleIdToProcess);
+        ArrayList<JSONObject> titleEpisodeData = titleEpisodeEntity.getDataAsJson();
+
         this.sendDataToStream(titleBasicsData, "title_basics");
         this.sendDataToStream(titlePrincipalsData, "title_principals");
         this.sendDataToStream(nameBasicsData, "name_basics");
         this.sendDataToStream(titleRatingData, "title_ratings");
+        this.sendDataToStream(titleEpisodeData, "title_episodes");
 
         DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
@@ -111,7 +115,7 @@ public class DataGenerator {
 
     public static void main(String[] args) {
         DataGenerator test = new DataGenerator();
-        test.start();
+        test.processDataForTitleId("tt0000002");
     }
 
 }
