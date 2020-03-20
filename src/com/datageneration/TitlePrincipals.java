@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class TitlePrincipals extends DataUnit{
 
+    public TitlePrincipals() {}
+
     public TitlePrincipals(String _titleId) {
         this.setTitleId(_titleId);
         this.setFileName("title_principals.csv");

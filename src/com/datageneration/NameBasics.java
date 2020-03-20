@@ -8,6 +8,8 @@ public class NameBasics extends DataUnit{
 
     private String titleId;
 
+    public NameBasics() {}
+
     public NameBasics(String _titleId) {
         this.setTitleId(_titleId);
         this.initializeFileData();

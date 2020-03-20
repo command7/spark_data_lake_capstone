@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class TitleRating extends DataUnit {
 
+    public TitleRating() {}
+
     public TitleRating(String _titleId) {
         this.setTitleId(_titleId);
         this.setFileName("title_ratings.csv");
