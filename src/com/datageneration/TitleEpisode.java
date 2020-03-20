@@ -18,10 +18,12 @@ public class TitleEpisode extends DataUnit {
     @Override
     public JSONObject convertToJson(ArrayList<String> rowData) {
         JSONObject dataInJson = new JSONObject();
-        dataInJson.put("tconst", rowData.get(0));
-        dataInJson.put("parentTconst", rowData.get(1));
-        dataInJson.put("seasonNumber", rowData.get(2));
-        dataInJson.put("episodeNumber", rowData.get(3));
+
+        this.insertIntoJsonObject(dataInJson, "tconst", rowData.get(0), "string");
+        this.insertIntoJsonObject(dataInJson, "parentTconst", rowData.get(1), "string");
+        this.insertIntoJsonObject(dataInJson, "seasonNumber", rowData.get(2), "integer");
+        this.insertIntoJsonObject(dataInJson, "episodeNumber", rowData.get(3), "integer");
+
         return dataInJson;
     }
 }

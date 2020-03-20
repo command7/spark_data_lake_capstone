@@ -19,9 +19,9 @@ public class TitleRating extends DataUnit {
     public JSONObject convertToJson(ArrayList<String> rowData) {
         JSONObject dataInJson = new JSONObject();
 
-        dataInJson.put("tconst", rowData.get(0));
-        dataInJson.put("averageRating", Double.valueOf(rowData.get(1)));
-        dataInJson.put("numVotes", Double.valueOf(rowData.get(2)));
+        this.insertIntoJsonObject(dataInJson, "tconst", rowData.get(0), "string");
+        this.insertIntoJsonObject(dataInJson, "averageRating", rowData.get(1), "decimal");
+        this.insertIntoJsonObject(dataInJson, "numVotes", rowData.get(2), "decimal");
 
         return dataInJson;
     }

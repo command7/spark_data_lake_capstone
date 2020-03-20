@@ -34,12 +34,14 @@ public class NameBasics extends DataUnit{
     @Override
     public JSONObject convertToJson(ArrayList<String> rowData) {
         JSONObject dataInJson = new JSONObject();
-        dataInJson.put("nconst", rowData.get(0));
-        dataInJson.put("primaryName", rowData.get(1));
-        dataInJson.put("birthYear", Integer.valueOf(rowData.get(2)));
-        dataInJson.put("deathYear", Integer.valueOf(rowData.get(3)));
-        dataInJson.put("primaryProfession", rowData.get(4));
-        dataInJson.put("knownForTitles", rowData.get(5));
+
+        this.insertIntoJsonObject(dataInJson, "nconst", rowData.get(0), "string");
+        this.insertIntoJsonObject(dataInJson, "primaryName", rowData.get(1), "string");
+        this.insertIntoJsonObject(dataInJson, "birthYear", rowData.get(2), "integer");
+        this.insertIntoJsonObject(dataInJson, "deathYear", rowData.get(3), "integer");
+        this.insertIntoJsonObject(dataInJson, "primaryProfession", rowData.get(4), "string");
+        this.insertIntoJsonObject(dataInJson, "knownForTitles", rowData.get(5), "string");
+
         return dataInJson;
     }
 

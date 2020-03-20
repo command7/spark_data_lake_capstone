@@ -18,12 +18,14 @@ public class TitlePrincipals extends DataUnit{
     @Override
     public JSONObject convertToJson(ArrayList<String> rowData) {
         JSONObject dataInJson = new JSONObject();
-        dataInJson.put("tconst", rowData.get(0));
-        dataInJson.put("ordering", Integer.valueOf(rowData.get(1)));
-        dataInJson.put("nconst", rowData.get(2));
-        dataInJson.put("category", rowData.get(3));
-        dataInJson.put("job", rowData.get(4));
-        dataInJson.put("characters", rowData.get(5));
+
+        this.insertIntoJsonObject(dataInJson, "tconst", rowData.get(0), "string");
+        this.insertIntoJsonObject(dataInJson, "ordering", rowData.get(1), "integer");
+        this.insertIntoJsonObject(dataInJson, "nconst", rowData.get(2), "string");
+        this.insertIntoJsonObject(dataInJson, "category", rowData.get(3), "string");
+        this.insertIntoJsonObject(dataInJson, "job", rowData.get(4), "string");
+        this.insertIntoJsonObject(dataInJson, "characters", rowData.get(5), "string");
+
         return dataInJson;
     }
 
