@@ -18,5 +18,5 @@ out/
 spark_data_lake_capstone.iml
 src/.DS_Store
 src/com/.DS_Store
-src/com/testing/
+src/com/testing/temporary.java
 awsProperties.properties
