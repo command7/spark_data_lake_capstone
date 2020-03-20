@@ -89,6 +89,33 @@ public abstract class DataUnit {
         catch (Exception ex) {};
     }
 
+    public boolean isValueNull(String valueToCheckIfNull) {
+        return valueToCheckIfNull.equals("\\\\N") || valueToCheckIfNull.equals("\\N");
+    }
+
+    public void insertIntoJsonObject(JSONObject jsonObject, String keyToInsert,
+                                      String valueToInsert, String dataType) {
+        if (this.isValueNull(valueToInsert)) {
+            jsonObject.put(keyToInsert, JSONObject.NULL);
+        }
+        else {
+            switch (dataType) {
+                case "integer":
+                    jsonObject.put(keyToInsert, Integer.valueOf(valueToInsert));
+                    break;
+
+                case "string":
+                    jsonObject.put(keyToInsert, valueToInsert);
+                    break;
+
+                case "decimal":
+                    jsonObject.put(keyToInsert, Double.valueOf(valueToInsert));
+                    break;
+
+            }
+        }
+
+    }
     public String toString() {
         String outputString = "";
         for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++) {
