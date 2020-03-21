@@ -26,4 +26,9 @@ public class TitleEpisode extends DataUnit {
 
         return dataInJson;
     }
+
+    public static void main(String[] args) {
+        TitleEpisode test = new TitleEpisode("tt0041951");
+        System.out.println(test.getDataAsJson());
+    }
 }
