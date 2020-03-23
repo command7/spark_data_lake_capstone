@@ -1,9 +1,5 @@
 package com.datageneration;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 public class NameBasic extends DataUnit{
 
     public NameBasic() {}
