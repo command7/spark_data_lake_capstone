@@ -10,7 +10,7 @@ public abstract class DataUnit {
 
     private String fileName;
     private boolean preProcessUniqueIdFlag = false;
-    private TreeMap<String, ArrayList<String>> fileData;
+    private TreeMap<String, String[]> fileData;
 
     public DataUnit(String originalCsvDataFileName) {
         this.setFileName(originalCsvDataFileName);
@@ -30,7 +30,7 @@ public abstract class DataUnit {
         return this.fileName;
     }
 
-    public TreeMap<String, ArrayList<String>> getAllFileData() {
+    public TreeMap<String, String[]> getAllFileData() {
         return this.fileData;
     }
 
@@ -42,12 +42,12 @@ public abstract class DataUnit {
         return "Data/" + fileToOpen;
     }
 
-    public ArrayList<String> getRowDataFromFile(String itemId) {
+    public String[] getRowDataFromFile(String itemId) {
         return this.getAllFileData().get(itemId);
     }
 
     public void initializeFileData() {
-        this.fileData = new TreeMap<String, ArrayList<String>>();
+        this.fileData = new TreeMap<String, String[]>();
     }
 
     public void setFileName(String _fileName) {
@@ -82,16 +82,15 @@ public abstract class DataUnit {
                         lineNumber += 1;
                         continue;
                     }
-                    ArrayList<String> rowDataList = new ArrayList<String>();
                     String[] rowDataArray = dataLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                    for (String s : rowDataArray) {
-                        rowDataList.add(s.replace("\"", ""));
+                    for(int rowDataIndex = 0; rowDataIndex < rowDataArray.length; rowDataIndex++) {
+                        rowDataArray[rowDataIndex] = rowDataArray[rowDataIndex].replace("\"", "");
                     }
                     if (!preProcessUniqueIdFlag) {
-                        fileData.put(rowDataList.get(0), rowDataList);
+                        fileData.put(rowDataArray[0], rowDataArray);
                     } else {
-                        String rowUniqueId = rowDataList.get(0) + "|" + rowDataList.get(2);
-                        fileData.put(rowUniqueId, rowDataList);
+                        String rowUniqueId = rowDataArray[0] + "|" + rowDataArray[2];
+                        fileData.put(rowUniqueId, rowDataArray);
                     }
                 }
                 csvReader.close();
@@ -170,7 +169,7 @@ public abstract class DataUnit {
         try {
             ObjectInputStream fileDataReader = new ObjectInputStream(
                     new FileInputStream(new File(this.getDataFileName())));
-            this.fileData = (TreeMap<String, ArrayList<String>>)fileDataReader.readObject();
+            this.fileData = (TreeMap<String, String[]>)fileDataReader.readObject();
         }
         catch (Exception e) {
             e.printStackTrace();
