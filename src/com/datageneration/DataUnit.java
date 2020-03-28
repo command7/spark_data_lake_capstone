@@ -95,6 +95,7 @@ public abstract class DataUnit {
                     }
                 }
                 csvReader.close();
+                this.saveFileData();
             } catch (Exception ex) {
             }
             ;
