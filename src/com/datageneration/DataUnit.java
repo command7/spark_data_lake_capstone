@@ -32,10 +32,6 @@ public abstract class DataUnit {
         return this.getAllFileData().get(itemId);
     }
 
-    public String getTitleIdAtIndex(int itemIndex) {
-        return String.valueOf(this.getRowDataFromFile(itemIndex).get(0));
-    }
-
     public void initializeFileData() {
         this.fileData = new ArrayList<ArrayList>();
     }
@@ -46,17 +42,6 @@ public abstract class DataUnit {
 
     public void setFileName(String _fileName) {
         this.fileName = _fileName;
-    }
-
-    public void setFileData(TreeMap<String, ArrayList<String>> _fileData) {
-        this.fileData = _fileData;
-    }
-
-    public boolean isValidCriteria(String criteriaValue) {
-        if (this.getTitleId().equals(criteriaValue)) {
-            return true;
-        }
-        return false;
     }
 
     public void openCsvFile() {
