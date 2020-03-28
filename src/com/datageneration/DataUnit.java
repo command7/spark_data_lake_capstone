@@ -36,10 +36,6 @@ public abstract class DataUnit {
         this.fileData = new TreeMap<String, ArrayList<String>>();
     }
 
-    public void setTitleId(String _titleId) {
-        this.titleId = _titleId;
-    }
-
     public void setFileName(String _fileName) {
         this.fileName = _fileName;
     }
