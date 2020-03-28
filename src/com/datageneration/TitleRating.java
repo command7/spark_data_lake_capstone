@@ -6,13 +6,10 @@ import java.util.ArrayList;
 
 public class TitleRating extends DataUnit {
 
-    public TitleRating() {}
-
-    public TitleRating(String _titleId) {
-        this.setTitleId(_titleId);
+    public TitleRating() {
         this.setFileName("title_ratings.csv");
         this.initializeFileData();
-        this.openCsvFile();
+        this.readDataContents();
     }
 
     @Override
@@ -25,10 +22,4 @@ public class TitleRating extends DataUnit {
 
         return dataInJson;
     }
-
-    public static void main(String[] args) {
-        TitleRating test = new TitleRating("tt0000002");
-        System.out.println(test);
-    }
-
 }

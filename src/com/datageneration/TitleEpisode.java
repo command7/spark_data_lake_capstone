@@ -6,13 +6,10 @@ import java.util.ArrayList;
 
 public class TitleEpisode extends DataUnit {
 
-    public TitleEpisode() {}
-
-    public TitleEpisode(String _titleId) {
-    this.setTitleId(_titleId);
+    public TitleEpisode() {
     this.setFileName("title_episodes.csv");
     this.initializeFileData();
-    this.openCsvFile();
+    this.readDataContents();
     }
 
     @Override
@@ -25,10 +22,5 @@ public class TitleEpisode extends DataUnit {
         this.insertIntoJsonObject(dataInJson, "episodeNumber", rowData.get(3), "integer");
 
         return dataInJson;
-    }
-
-    public static void main(String[] args) {
-        TitleEpisode test = new TitleEpisode("tt0041951");
-        System.out.println(test.getDataAsJson());
     }
 }

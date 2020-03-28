@@ -10,6 +10,7 @@ import java.util.TreeMap;
 public abstract class DataUnit {
 
     private String fileName;
+    private boolean preProcessUniqueIdFlag = false;
     private TreeMap<String, ArrayList<String>> fileData;
 
     public String getFileName() {
@@ -40,8 +41,11 @@ public abstract class DataUnit {
         this.fileName = _fileName;
     }
 
-    public void openCsvFile() {
-        // Check if file is present
+    public void setPreProcessUniqueIdFlag(boolean flagValue) {
+        this.preProcessUniqueIdFlag = flagValue;
+    }
+
+    public void readDataContents() {
         String pathToCsvFile = this.getAbsoluteFilePath(this.getFileName());
         String dataLine;
         int lineNumber = 1;
@@ -52,13 +56,17 @@ public abstract class DataUnit {
                     lineNumber += 1;
                     continue;
                 }
-                ArrayList rowDataList = new ArrayList();
+                ArrayList<String> rowDataList = new ArrayList<String>();
                 String [] rowDataArray = dataLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                if(this.isValidCriteria(rowDataArray[0])) {
-                    for (int rowDataArrayIndex = 0; rowDataArrayIndex < rowDataArray.length; rowDataArrayIndex++) {
-                        rowDataList.add(rowDataArray[rowDataArrayIndex].replace("\"", ""));
-                    }
-                    fileData.add(rowDataList);
+                for (String s : rowDataArray) {
+                    rowDataList.add(s.replace("\"", ""));
+                }
+                if (!preProcessUniqueIdFlag) {
+                    fileData.put(rowDataList.get(0), rowDataList);
+                }
+                else {
+                    String rowUniqueId = rowDataList.get(0) + "|" + rowDataList.get(2);
+                    fileData.put(rowUniqueId, rowDataList);
                 }
             }
             csvReader.close();
@@ -93,28 +101,28 @@ public abstract class DataUnit {
         }
 
     }
-    public String toString() {
-        String outputString = "";
-        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++) {
-            ArrayList recordData = this.getRowDataFromFile(recordIndex);
-            for (int recordDataIndex = 0; recordDataIndex < recordData.size(); recordDataIndex++) {
-                outputString += (String)recordData.get(recordDataIndex) + " ";
-            }
-            outputString += "\n";
-        }
-        return outputString;
-    }
+//    public String toString() {
+//        String outputString = "";
+//        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++) {
+//            ArrayList recordData = this.getRowDataFromFile(recordIndex);
+//            for (int recordDataIndex = 0; recordDataIndex < recordData.size(); recordDataIndex++) {
+//                outputString += (String)recordData.get(recordDataIndex) + " ";
+//            }
+//            outputString += "\n";
+//        }
+//        return outputString;
+//    }
 
     public JSONObject convertToJson(ArrayList<String> rowData) {
         return null;
     }
 
-    public ArrayList<JSONObject> getDataAsJson() {
-        ArrayList<JSONObject> jsonData = new ArrayList<JSONObject>();
-        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++){
-            jsonData.add(convertToJson(this.getRowDataFromFile(recordIndex)));
-        }
-        return jsonData;
-    }
+//    public ArrayList<JSONObject> getDataAsJson() {
+//        ArrayList<JSONObject> jsonData = new ArrayList<JSONObject>();
+//        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++){
+//            jsonData.add(convertToJson(this.getRowDataFromFile(recordIndex)));
+//        }
+//        return jsonData;
+//    }
 
 }

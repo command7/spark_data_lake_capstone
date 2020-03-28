@@ -6,13 +6,10 @@ import java.util.ArrayList;
 
 public class TitleBasics extends DataUnit{
 
-    public TitleBasics() {}
-
-    public TitleBasics(String _titleId) {
-        this.setTitleId(_titleId);
+    public TitleBasics() {
         this.setFileName("title_basics.csv");
         this.initializeFileData();
-        this.openCsvFile();
+        this.readDataContents();
     }
 
     @Override
@@ -30,10 +27,5 @@ public class TitleBasics extends DataUnit{
         this.insertIntoJsonObject(dataInJson, "genre", rowData.get(8), "string");
 
         return dataInJson;
-    }
-
-    public static void main(String[] args) {
-        TitleBasics test = new TitleBasics("tt0000001");
-        System.out.println(test.getDataAsJson());
     }
 }
