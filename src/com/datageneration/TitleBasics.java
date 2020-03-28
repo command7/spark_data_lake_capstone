@@ -9,8 +9,9 @@ public class TitleBasics extends DataUnit{
     public TitleBasics() {
         this.setFileName("title_basics.csv");
         this.initializeFileData();
-        this.readDataContents();
+        this.readDataContentsToMemory();
     }
+
 
     @Override
     public JSONObject convertToJson(ArrayList<String> rowData) {
@@ -27,5 +28,10 @@ public class TitleBasics extends DataUnit{
         this.insertIntoJsonObject(dataInJson, "genre", rowData.get(8), "string");
 
         return dataInJson;
+    }
+
+    public static void main(String[] args) {
+        TitleBasics test = new TitleBasics();
+        System.out.println(test.getClass().getSimpleName());
     }
 }

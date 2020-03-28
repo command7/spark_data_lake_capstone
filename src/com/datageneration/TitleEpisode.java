@@ -9,7 +9,7 @@ public class TitleEpisode extends DataUnit {
     public TitleEpisode() {
     this.setFileName("title_episodes.csv");
     this.initializeFileData();
-    this.readDataContents();
+    this.readDataContentsToMemory();
     }
 
     @Override

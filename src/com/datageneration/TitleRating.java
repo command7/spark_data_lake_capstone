@@ -9,7 +9,7 @@ public class TitleRating extends DataUnit {
     public TitleRating() {
         this.setFileName("title_ratings.csv");
         this.initializeFileData();
-        this.readDataContents();
+        this.readDataContentsToMemory();
     }
 
     @Override

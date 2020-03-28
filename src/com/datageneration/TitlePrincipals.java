@@ -10,7 +10,7 @@ public class TitlePrincipals extends DataUnit{
         this.setPreProcessUniqueIdFlag(true);
         this.setFileName("title_principals.csv");
         this.initializeFileData();
-        this.readDataContents();
+        this.readDataContentsToMemory();
     }
 
     @Override

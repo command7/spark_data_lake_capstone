@@ -2,8 +2,7 @@ package com.datageneration;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -45,33 +44,47 @@ public abstract class DataUnit {
         this.preProcessUniqueIdFlag = flagValue;
     }
 
-    public void readDataContents() {
-        String pathToCsvFile = this.getAbsoluteFilePath(this.getFileName());
-        String dataLine;
-        int lineNumber = 1;
-        try {
-            BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsvFile));
-            while ((dataLine = csvReader.readLine()) != null) {
-                if (lineNumber == 1) {
-                    lineNumber += 1;
-                    continue;
-                }
-                ArrayList<String> rowDataList = new ArrayList<String>();
-                String [] rowDataArray = dataLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-                for (String s : rowDataArray) {
-                    rowDataList.add(s.replace("\"", ""));
-                }
-                if (!preProcessUniqueIdFlag) {
-                    fileData.put(rowDataList.get(0), rowDataList);
-                }
-                else {
-                    String rowUniqueId = rowDataList.get(0) + "|" + rowDataList.get(2);
-                    fileData.put(rowUniqueId, rowDataList);
-                }
-            }
-            csvReader.close();
+    public String getDataFileName() {
+        return this.getClass().getSimpleName() + ".data";
+    }
+
+    public boolean isDataFilePresent() {
+        File dataFile = new File(this.getDataFileName());
+        return dataFile.exists();
+    }
+
+    public void readDataContentsToMemory() {
+        if (isDataFilePresent()) {
+            this.loadFileDataFromObjectFile();
         }
-        catch (Exception ex) {};
+        else {
+            String pathToCsvFile = this.getAbsoluteFilePath(this.getFileName());
+            String dataLine;
+            int lineNumber = 1;
+            try {
+                BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsvFile));
+                while ((dataLine = csvReader.readLine()) != null) {
+                    if (lineNumber == 1) {
+                        lineNumber += 1;
+                        continue;
+                    }
+                    ArrayList<String> rowDataList = new ArrayList<String>();
+                    String[] rowDataArray = dataLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+                    for (String s : rowDataArray) {
+                        rowDataList.add(s.replace("\"", ""));
+                    }
+                    if (!preProcessUniqueIdFlag) {
+                        fileData.put(rowDataList.get(0), rowDataList);
+                    } else {
+                        String rowUniqueId = rowDataList.get(0) + "|" + rowDataList.get(2);
+                        fileData.put(rowUniqueId, rowDataList);
+                    }
+                }
+                csvReader.close();
+            } catch (Exception ex) {
+            }
+            ;
+        }
     }
 
     public boolean isValueNull(String valueToCheckIfNull) {
@@ -124,5 +137,29 @@ public abstract class DataUnit {
 //        }
 //        return jsonData;
 //    }
+
+    public void saveFileData() {
+        try {
+            ObjectOutputStream fileDataWriter = new ObjectOutputStream(
+                    new FileOutputStream(new File(this.getDataFileName())));
+            fileDataWriter.writeObject(this.getAllFileData());
+            fileDataWriter.flush();
+            fileDataWriter.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFileDataFromObjectFile() {
+        try {
+            ObjectInputStream fileDataReader = new ObjectInputStream(
+                    new FileInputStream(new File(this.getDataFileName())));
+            this.fileData = (TreeMap<String, ArrayList<String>>)fileDataReader.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

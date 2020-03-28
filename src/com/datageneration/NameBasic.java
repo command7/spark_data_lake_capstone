@@ -9,7 +9,7 @@ public class NameBasic extends DataUnit{
     public NameBasic() {
         this.setFileName("name_basics.csv");
         this.initializeFileData();
-        this.readDataContents();
+        this.readDataContentsToMemory();
     }
 
     //    public void addIndividualFileData(ArrayList fileRecord) {
