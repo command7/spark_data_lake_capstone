@@ -3,6 +3,7 @@ package com.datageneration;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class NameBasics extends DataUnit{
 
@@ -17,14 +18,14 @@ public class NameBasics extends DataUnit{
     }
 
     public void addIndividualFileData(ArrayList fileRecord) {
-        this.getFileData().add(fileRecord);
+        this.getAllFileData().add(fileRecord);
     }
 
     public void gatherInfo() {
         ArrayList<String> nameIds = DataStats.getNameConstsForTitle(this.getTitleId());
         for (String nameId: nameIds) {
             NameBasic individualNameBasic = new NameBasic(nameId);
-            ArrayList<ArrayList> individualFileData = individualNameBasic.getFileData();
+            TreeMap<String, ArrayList<String>> individualFileData = individualNameBasic.getAllFileData();
             for (ArrayList rowData: individualFileData) {
                 this.addIndividualFileData(rowData);
             }

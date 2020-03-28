@@ -33,7 +33,7 @@ public abstract class DataUnit {
     }
 
     public void initializeFileData() {
-        this.fileData = new ArrayList<ArrayList>();
+        this.fileData = new TreeMap<String, ArrayList<String>>();
     }
 
     public void setTitleId(String _titleId) {
