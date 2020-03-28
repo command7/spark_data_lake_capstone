@@ -67,4 +67,9 @@ public class TitleEpisodeTest {
                 "episodeNumber\":null,\"parentTconst\":\"tt0041038\"}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInEpisodeNumber).toString());
     }
+
+    @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 444251);
+    }
 }

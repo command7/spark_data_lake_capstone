@@ -1,17 +1,17 @@
 package com.testing;
 
-import com.datageneration.NameBasics;
+import com.datageneration.NameBasic;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.ArrayList;
 
 public class NameBasicsTest {
-    NameBasics testInstance;
+    NameBasic testInstance;
 
     @Before
     public void initializeTesting() {
-        testInstance = new NameBasics();
+        testInstance = new NameBasic();
     }
 
     @Test
@@ -108,5 +108,10 @@ public class NameBasicsTest {
                 "\"director,actor,producer\",\"nconst\":\"nm0617588\"," +
                 "\"knownForTitles\":null,\"primaryName\":\"Georges Méliès\"}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInKnownForTitles).toString());
+    }
+
+    @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 1494835);
     }
 }

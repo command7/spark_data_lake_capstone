@@ -186,4 +186,9 @@ public class TitleBasicsTest {
                 "endYear\":1990,\"isAdult\":0}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInGenre).toString());
     }
+
+    @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 976509);
+    }
 }

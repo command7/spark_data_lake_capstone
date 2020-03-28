@@ -48,4 +48,9 @@ public class TitleRatingTest {
         String correctOutput = "{\"tconst\":\"tt0000002\",\"averageRating\":6.1,\"numVotes\":null}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInNumVotes).toString());
     }
+
+    @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 976509);
+    }
 }

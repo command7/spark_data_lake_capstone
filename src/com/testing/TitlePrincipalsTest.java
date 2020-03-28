@@ -105,4 +105,9 @@ public class TitlePrincipalsTest {
                 "nm1588970\",\"category\":\"self\",\"job\":\"director\"}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInCharacters).toString());
     }
+
+    @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 1597829);
+    }
 }
