@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class TitleEpisode extends DataUnit {
 
     public TitleEpisode() {
-    this.setFileName("title_episodes.csv");
-    this.initializeFileData();
-    this.readDataContentsToMemory();
+        super("title_episodes.csv");
     }
 
     @Override

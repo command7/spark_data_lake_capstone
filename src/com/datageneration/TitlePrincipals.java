@@ -7,10 +7,8 @@ import java.util.ArrayList;
 public class TitlePrincipals extends DataUnit{
 
     public TitlePrincipals() {
-        this.setPreProcessUniqueIdFlag(true);
-        this.setFileName("title_principals.csv");
-        this.initializeFileData();
-        this.readDataContentsToMemory();
+        super("title_principals.csv",
+                true);
     }
 
     @Override

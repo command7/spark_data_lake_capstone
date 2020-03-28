@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class TitleRating extends DataUnit {
 
     public TitleRating() {
-        this.setFileName("title_ratings.csv");
-        this.initializeFileData();
-        this.readDataContentsToMemory();
+        super("title_ratings.csv");
     }
 
     @Override

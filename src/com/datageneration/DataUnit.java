@@ -12,6 +12,20 @@ public abstract class DataUnit {
     private boolean preProcessUniqueIdFlag = false;
     private TreeMap<String, ArrayList<String>> fileData;
 
+    public DataUnit(String originalCsvDataFileName) {
+        this.setFileName(originalCsvDataFileName);
+        this.initializeFileData();
+        this.readDataContentsToMemory();
+    }
+
+    public DataUnit(String originalCsvDataFileName,
+                    boolean preProcessFlag) {
+        this.setPreProcessUniqueIdFlag(preProcessFlag);
+        this.setFileName(originalCsvDataFileName);
+        this.initializeFileData();
+        this.readDataContentsToMemory();
+    }
+
     public String getFileName() {
         return this.fileName;
     }

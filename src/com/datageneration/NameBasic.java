@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class NameBasic extends DataUnit{
 
     public NameBasic() {
-        this.setFileName("name_basics.csv");
-        this.initializeFileData();
-        this.readDataContentsToMemory();
+        super("name_basics.csv");
     }
 
     //    public void addIndividualFileData(ArrayList fileRecord) {
