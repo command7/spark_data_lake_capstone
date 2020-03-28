@@ -5,35 +5,31 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public abstract class DataUnit {
 
-    private String titleId;
     private String fileName;
-    private ArrayList<ArrayList> fileData;
-
-    public String getTitleId() {
-        return this.titleId;
-    }
+    private TreeMap<String, ArrayList<String>> fileData;
 
     public String getFileName() {
         return this.fileName;
     }
 
-    public ArrayList<ArrayList> getFileData() {
+    public TreeMap<String, ArrayList<String>> getAllFileData() {
         return this.fileData;
     }
 
     public int getNumberOfRecords() {
-        return this.getFileData().size();
+        return this.getAllFileData().size();
     }
 
     public String getAbsoluteFilePath(String fileToOpen) {
         return "Data/" + fileToOpen;
     }
 
-    public ArrayList getRowDataFromFile(int itemIndex) {
-        return this.getFileData().get(itemIndex);
+    public ArrayList<String> getRowDataFromFile(String itemId) {
+        return this.getAllFileData().get(itemId);
     }
 
     public String getTitleIdAtIndex(int itemIndex) {
@@ -52,7 +48,7 @@ public abstract class DataUnit {
         this.fileName = _fileName;
     }
 
-    public void setFileData(ArrayList<ArrayList> _fileData) {
+    public void setFileData(TreeMap<String, ArrayList<String>> _fileData) {
         this.fileData = _fileData;
     }
 
