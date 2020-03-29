@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TitleRating extends DataUnit {
 
     public TitleRating() {
-        super("title_ratings.csv");
+        super("title_ratings_sampled.csv");
     }
 
     @Override

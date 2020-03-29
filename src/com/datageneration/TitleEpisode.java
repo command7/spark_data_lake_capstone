@@ -5,7 +5,7 @@ import org.json.JSONObject;
 public class TitleEpisode extends DataUnit {
 
     public TitleEpisode() {
-        super("title_episodes.csv");
+        super("title_episodes_sampled.csv");
     }
 
     @Override

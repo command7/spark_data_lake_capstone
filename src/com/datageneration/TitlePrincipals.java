@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class TitlePrincipals extends DataUnit{
 
     public TitlePrincipals() {
-        super("title_principals.csv",
+        super("title_principals_sampled.csv",
                 true);
     }
 
