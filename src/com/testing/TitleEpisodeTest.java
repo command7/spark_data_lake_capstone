@@ -17,12 +17,17 @@ public class TitleEpisodeTest {
     }
 
     @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 444251);
+    }
+
+    @Test
     public void convertToJsonTconstNull() {
-        ArrayList<String> nullInTconst = new ArrayList<>();
-        nullInTconst.add("\\N");
-        nullInTconst.add("tt0041038");
-        nullInTconst.add("1");
-        nullInTconst.add("9");
+        String[] nullInTconst = new String[4];
+        nullInTconst[0] = ("\\N");
+        nullInTconst[1] = ("tt0041038");
+        nullInTconst[2] = ("1");
+        nullInTconst[3] = ("9");
 
         String correctOutput = "{\"tconst\":null,\"seasonNumber\":1,\"" +
                 "episodeNumber\":9,\"parentTconst\":\"tt0041038\"}";
@@ -31,11 +36,11 @@ public class TitleEpisodeTest {
 
     @Test
     public void convertToJsonParentTconstNull() {
-        ArrayList<String> nullInParentTconst = new ArrayList<>();
-        nullInParentTconst.add("tt0041951");
-        nullInParentTconst.add("\\N");
-        nullInParentTconst.add("1");
-        nullInParentTconst.add("9");
+        String[] nullInParentTconst = new String[4];
+        nullInParentTconst[0] = ("tt0041951");
+        nullInParentTconst[1] = ("\\N");
+        nullInParentTconst[2] = ("1");
+        nullInParentTconst[3] = ("9");
 
         String correctOutput = "{\"tconst\":\"tt0041951\",\"seasonNumber\":1,\"" +
                 "episodeNumber\":9,\"parentTconst\":null}";
@@ -44,11 +49,11 @@ public class TitleEpisodeTest {
 
     @Test
     public void convertToJsonSeasonNumberNull() {
-        ArrayList<String> nullInSeasonNumber = new ArrayList<>();
-        nullInSeasonNumber.add("tt0041951");
-        nullInSeasonNumber.add("tt0041038");
-        nullInSeasonNumber.add("\\N");
-        nullInSeasonNumber.add("9");
+        String[] nullInSeasonNumber = new String[4];
+        nullInSeasonNumber[0] = ("tt0041951");
+        nullInSeasonNumber[1] = ("tt0041038");
+        nullInSeasonNumber[2] = ("\\N");
+        nullInSeasonNumber[3] = ("9");
 
         String correctOutput = "{\"tconst\":\"tt0041951\",\"seasonNumber\":null,\"" +
                 "episodeNumber\":9,\"parentTconst\":\"tt0041038\"}";
@@ -57,19 +62,14 @@ public class TitleEpisodeTest {
 
     @Test
     public void convertToJsonEpisodeNumberNull() {
-        ArrayList<String> nullInEpisodeNumber = new ArrayList<>();
-        nullInEpisodeNumber.add("tt0041951");
-        nullInEpisodeNumber.add("tt0041038");
-        nullInEpisodeNumber.add("1");
-        nullInEpisodeNumber.add("\\N");
+        String[] nullInEpisodeNumber = new String[4];
+        nullInEpisodeNumber[0] = ("tt0041951");
+        nullInEpisodeNumber[1] = ("tt0041038");
+        nullInEpisodeNumber[2] = ("1");
+        nullInEpisodeNumber[3] = ("\\N");
 
         String correctOutput = "{\"tconst\":\"tt0041951\",\"seasonNumber\":1,\"" +
                 "episodeNumber\":null,\"parentTconst\":\"tt0041038\"}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInEpisodeNumber).toString());
-    }
-
-    @Test
-    public void checkGetNumberOfRecords() {
-        Assert.assertEquals(testInstance.getNumberOfRecords(), 444251);
     }
 }

@@ -6,7 +6,6 @@ import org.junit.Assert;
 
 import com.datageneration.TitleBasics;
 
-import java.util.ArrayList;
 
 public class TitleBasicsTest {
     TitleBasics testInstance;
@@ -17,17 +16,22 @@ public class TitleBasicsTest {
     }
 
     @Test
+    public void checkGetNumberOfRecords() {
+        Assert.assertEquals(testInstance.getNumberOfRecords(), 976509);
+    }
+
+    @Test
     public void convertToJsonTconstNull() {
-        ArrayList<String> nullInTconst = new ArrayList<>();
-        nullInTconst.add("\\N");
-        nullInTconst.add("short");
-        nullInTconst.add("Carmencita");
-        nullInTconst.add("Carmencita");
-        nullInTconst.add("0");
-        nullInTconst.add("1894");
-        nullInTconst.add("1990");
-        nullInTconst.add("1");
-        nullInTconst.add("Documentary");
+        String[] nullInTconst = new String[9];
+        nullInTconst[0] = ("\\N");
+        nullInTconst[1] = ("short");
+        nullInTconst[2] = ("Carmencita");
+        nullInTconst[3] = ("Carmencita");
+        nullInTconst[4] = ("0");
+        nullInTconst[5] = ("1894");
+        nullInTconst[6] = ("1990");
+        nullInTconst[7] = ("1");
+        nullInTconst[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":null,\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -37,16 +41,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonTitleTypeNull() {
-        ArrayList<String> nullInTitleType = new ArrayList<>();
-        nullInTitleType.add("tt0000001");
-        nullInTitleType.add("\\N");
-        nullInTitleType.add("Carmencita");
-        nullInTitleType.add("Carmencita");
-        nullInTitleType.add("0");
-        nullInTitleType.add("1894");
-        nullInTitleType.add("1990");
-        nullInTitleType.add("1");
-        nullInTitleType.add("Documentary");
+        String[] nullInTitleType = new String[9];
+        nullInTitleType[0] = ("tt0000001");
+        nullInTitleType[1] = ("\\N");
+        nullInTitleType[2] = ("Carmencita");
+        nullInTitleType[3] = ("Carmencita");
+        nullInTitleType[4] = ("0");
+        nullInTitleType[5] = ("1894");
+        nullInTitleType[6] = ("1990");
+        nullInTitleType[7] = ("1");
+        nullInTitleType[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":null,\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -56,16 +60,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonPrimaryTitleNull() {
-        ArrayList<String> nullInPrimaryTitle = new ArrayList<>();
-        nullInPrimaryTitle.add("tt0000001");
-        nullInPrimaryTitle.add("short");
-        nullInPrimaryTitle.add("\\N");
-        nullInPrimaryTitle.add("Carmencita");
-        nullInPrimaryTitle.add("0");
-        nullInPrimaryTitle.add("1894");
-        nullInPrimaryTitle.add("1990");
-        nullInPrimaryTitle.add("1");
-        nullInPrimaryTitle.add("Documentary");
+        String[] nullInPrimaryTitle = new String[9];
+        nullInPrimaryTitle[0] = ("tt0000001");
+        nullInPrimaryTitle[1] = ("short");
+        nullInPrimaryTitle[2] = ("\\N");
+        nullInPrimaryTitle[3] = ("Carmencita");
+        nullInPrimaryTitle[4] = ("0");
+        nullInPrimaryTitle[5] = ("1894");
+        nullInPrimaryTitle[6] = ("1990");
+        nullInPrimaryTitle[7] = ("1");
+        nullInPrimaryTitle[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":null,\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -75,16 +79,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonOriginalTitleNull() {
-        ArrayList<String> nullInOriginalTitle = new ArrayList<>();
-        nullInOriginalTitle.add("tt0000001");
-        nullInOriginalTitle.add("short");
-        nullInOriginalTitle.add("Carmencita");
-        nullInOriginalTitle.add("\\N");
-        nullInOriginalTitle.add("0");
-        nullInOriginalTitle.add("1894");
-        nullInOriginalTitle.add("1990");
-        nullInOriginalTitle.add("1");
-        nullInOriginalTitle.add("Documentary");
+        String[] nullInOriginalTitle = new String[9];
+        nullInOriginalTitle[0] = ("tt0000001");
+        nullInOriginalTitle[1] = ("short");
+        nullInOriginalTitle[2] = ("Carmencita");
+        nullInOriginalTitle[3] = ("\\N");
+        nullInOriginalTitle[4] = ("0");
+        nullInOriginalTitle[5] = ("1894");
+        nullInOriginalTitle[6] = ("1990");
+        nullInOriginalTitle[7] = ("1");
+        nullInOriginalTitle[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":null,\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -94,16 +98,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonIsAdultNull() {
-        ArrayList<String> nullInIsAdult = new ArrayList<>();
-        nullInIsAdult.add("tt0000001");
-        nullInIsAdult.add("short");
-        nullInIsAdult.add("Carmencita");
-        nullInIsAdult.add("Carmencita");
-        nullInIsAdult.add("\\N");
-        nullInIsAdult.add("1894");
-        nullInIsAdult.add("1990");
-        nullInIsAdult.add("1");
-        nullInIsAdult.add("Documentary");
+        String[] nullInIsAdult = new String[9];
+        nullInIsAdult[0] = ("tt0000001");
+        nullInIsAdult[1] = ("short");
+        nullInIsAdult[2] = ("Carmencita");
+        nullInIsAdult[3] = ("Carmencita");
+        nullInIsAdult[4] = ("\\N");
+        nullInIsAdult[5] = ("1894");
+        nullInIsAdult[6] = ("1990");
+        nullInIsAdult[7] = ("1");
+        nullInIsAdult[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -113,16 +117,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonStartYearNull() {
-        ArrayList<String> nullInStartYear = new ArrayList<>();
-        nullInStartYear.add("tt0000001");
-        nullInStartYear.add("short");
-        nullInStartYear.add("Carmencita");
-        nullInStartYear.add("Carmencita");
-        nullInStartYear.add("0");
-        nullInStartYear.add("\\N");
-        nullInStartYear.add("1990");
-        nullInStartYear.add("1");
-        nullInStartYear.add("Documentary");
+        String[] nullInStartYear = new String[9];
+        nullInStartYear[0] = ("tt0000001");
+        nullInStartYear[1] = ("short");
+        nullInStartYear[2] = ("Carmencita");
+        nullInStartYear[3] = ("Carmencita");
+        nullInStartYear[4] = ("0");
+        nullInStartYear[5] = ("\\N");
+        nullInStartYear[6] = ("1990");
+        nullInStartYear[7] = ("1");
+        nullInStartYear[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":null,\"genre\":\"Documentary\",\"" +
@@ -132,16 +136,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonEndYearNull() {
-        ArrayList<String> nullInEndYear = new ArrayList<>();
-        nullInEndYear.add("tt0000001");
-        nullInEndYear.add("short");
-        nullInEndYear.add("Carmencita");
-        nullInEndYear.add("Carmencita");
-        nullInEndYear.add("0");
-        nullInEndYear.add("1894");
-        nullInEndYear.add("\\N");
-        nullInEndYear.add("1");
-        nullInEndYear.add("Documentary");
+        String[] nullInEndYear = new String[9];
+        nullInEndYear[0] = ("tt0000001");
+        nullInEndYear[1] = ("short");
+        nullInEndYear[2] = ("Carmencita");
+        nullInEndYear[3] = ("Carmencita");
+        nullInEndYear[4] = ("0");
+        nullInEndYear[5] = ("1894");
+        nullInEndYear[6] = ("\\N");
+        nullInEndYear[7] = ("1");
+        nullInEndYear[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -151,16 +155,16 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonRunTimeMinutesNull() {
-        ArrayList<String> nullInRunTimeMinutes = new ArrayList<>();
-        nullInRunTimeMinutes.add("tt0000001");
-        nullInRunTimeMinutes.add("short");
-        nullInRunTimeMinutes.add("Carmencita");
-        nullInRunTimeMinutes.add("Carmencita");
-        nullInRunTimeMinutes.add("0");
-        nullInRunTimeMinutes.add("1894");
-        nullInRunTimeMinutes.add("1990");
-        nullInRunTimeMinutes.add("\\N");
-        nullInRunTimeMinutes.add("Documentary");
+        String[] nullInRunTimeMinutes = new String[9];
+        nullInRunTimeMinutes[0] = ("tt0000001");
+        nullInRunTimeMinutes[1] = ("short");
+        nullInRunTimeMinutes[2] = ("Carmencita");
+        nullInRunTimeMinutes[3] = ("Carmencita");
+        nullInRunTimeMinutes[4] = ("0");
+        nullInRunTimeMinutes[5] = ("1894");
+        nullInRunTimeMinutes[6] = ("1990");
+        nullInRunTimeMinutes[7] = ("\\N");
+        nullInRunTimeMinutes[8] = ("Documentary");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":null,\"startYear\":1894,\"genre\":\"Documentary\",\"" +
@@ -170,25 +174,20 @@ public class TitleBasicsTest {
 
     @Test
     public void convertToJsonGenreNull() {
-        ArrayList<String> nullInGenre = new ArrayList<>();
-        nullInGenre.add("tt0000001");
-        nullInGenre.add("short");
-        nullInGenre.add("Carmencita");
-        nullInGenre.add("Carmencita");
-        nullInGenre.add("0");
-        nullInGenre.add("1894");
-        nullInGenre.add("1990");
-        nullInGenre.add("1");
-        nullInGenre.add("\\N");
+        String[] nullInGenre = new String[9];
+        nullInGenre[0] = ("tt0000001");
+        nullInGenre[1] = ("short");
+        nullInGenre[2] = ("Carmencita");
+        nullInGenre[3] = ("Carmencita");
+        nullInGenre[4] = ("0");
+        nullInGenre[5] = ("1894");
+        nullInGenre[6] = ("1990");
+        nullInGenre[7] = ("1");
+        nullInGenre[8] = ("\\N");
 
         String correctOutput = "{\"primaryTitle\":\"Carmencita\",\"titleType\":\"short\",\"tconst\":\"tt0000001\",\"" +
                 "originalTitle\":\"Carmencita\",\"runTimeMinutes\":1,\"startYear\":1894,\"genre\":null,\"" +
                 "endYear\":1990,\"isAdult\":0}";
         Assert.assertEquals(correctOutput, testInstance.convertToJson(nullInGenre).toString());
-    }
-
-    @Test
-    public void checkGetNumberOfRecords() {
-        Assert.assertEquals(testInstance.getNumberOfRecords(), 976509);
     }
 }
