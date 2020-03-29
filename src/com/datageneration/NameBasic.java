@@ -3,6 +3,7 @@ package com.datageneration;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class NameBasic extends DataUnit{
 
@@ -14,16 +15,16 @@ public class NameBasic extends DataUnit{
 //        this.getAllFileData().add(fileRecord);
 //    }
 //
-//    public void gatherInfo() {
-//        ArrayList<String> nameIds = DataStats.getNameConstsForTitle(this.getTitleId());
-//        for (String nameId: nameIds) {
-//            NameBasic individualNameBasic = new NameBasic(nameId);
-//            TreeMap<String, ArrayList<String>> individualFileData = individualNameBasic.getAllFileData();
-//            for (ArrayList rowData: individualFileData) {
-//                this.addIndividualFileData(rowData);
-//            }
-//        }
-//    }
+
+    public LinkedList<JSONObject> getAllRecordsForTitleAsJson(String uniqueIdForRow) {
+        LinkedList<JSONObject> dataAsJsonObjects = new LinkedList<JSONObject>();
+        ArrayList<String> nameIds = DataStats.getNameConstsForTitle(uniqueIdForRow);
+        for (String nameId: nameIds) {
+            JSONObject individualNameData = this.getSingleRecordAsJson(nameId);
+            dataAsJsonObjects.addLast(individualNameData);
+        }
+        return dataAsJsonObjects;
+    }
 
         @Override
         public JSONObject convertToJson(String[] rowData) {
