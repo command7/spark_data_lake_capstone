@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Properties;
 
 public class DataGenerator {
@@ -70,6 +72,28 @@ public class DataGenerator {
             putRecordRequest.setRecord(record);
             this.getFirehoseClient().putRecord(putRecordRequest);
         }
+    }
+
+    public void sendDataToStream(LinkedList<JSONObject> dataRecords,
+                                 String streamName)  {
+        ListIterator<JSONObject> dataListIterator = dataRecords.listIterator();
+        while(dataListIterator.hasNext()){
+            JSONObject jsonRowData = dataListIterator.next();
+            PutRecordRequest putRecordRequest = new PutRecordRequest();
+            putRecordRequest.setDeliveryStreamName(streamName);
+            Record record = new Record().withData(ByteBuffer.wrap(jsonRowData.toString().getBytes()));
+            putRecordRequest.setRecord(record);
+            this.getFirehoseClient().putRecord(putRecordRequest);
+        }
+    }
+
+    public void sendDataToStream(JSONObject dataRecord,
+                                 String streamName) {
+        PutRecordRequest putRecordRequest = new PutRecordRequest();
+        putRecordRequest.setDeliveryStreamName(streamName);
+        Record record = new Record().withData(ByteBuffer.wrap(dataRecord.toString().getBytes()));
+        putRecordRequest.setRecord(record);
+        this.getFirehoseClient().putRecord(putRecordRequest);
     }
 
     public void processDataForTitleId(String titleIdToProcess) {

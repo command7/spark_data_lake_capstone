@@ -11,11 +11,6 @@ public class NameBasic extends DataUnit{
         super("name_basics.csv");
     }
 
-    //    public void addIndividualFileData(ArrayList fileRecord) {
-//        this.getAllFileData().add(fileRecord);
-//    }
-//
-
     public LinkedList<JSONObject> getAllRecordsForTitleAsJson(String uniqueIdForRow) {
         LinkedList<JSONObject> dataAsJsonObjects = new LinkedList<JSONObject>();
         ArrayList<String> nameIds = DataStats.getNameConstsForTitle(uniqueIdForRow);
