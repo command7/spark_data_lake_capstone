@@ -3,12 +3,23 @@ package com.datageneration;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class TitlePrincipals extends DataUnit{
 
     public TitlePrincipals() {
         super("title_principals_sampled.csv",
                 true);
+    }
+
+    public LinkedList<JSONObject> getAllRecordsForTitleAsJson(String uniqueIdForRow) {
+        LinkedList<JSONObject> dataAsJsonObjects = new LinkedList<JSONObject>();
+        ArrayList<String> nameIds = DataStats.getNameConstsForTitle(uniqueIdForRow);
+        for (String nameId: nameIds) {
+            JSONObject individualNameData = this.getSingleRecordAsJson(uniqueIdForRow + "|" + nameId);
+            dataAsJsonObjects.addLast(individualNameData);
+        }
+        return dataAsJsonObjects;
     }
 
     @Override
