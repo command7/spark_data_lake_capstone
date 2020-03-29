@@ -151,26 +151,17 @@ public class DataGenerator {
     }
 
     public void processDataForTitleId(String titleIdToProcess) {
-        TitleBasics titleBasicsTest = new TitleBasics(titleIdToProcess);
-        ArrayList<JSONObject> titleBasicsData = titleBasicsTest.getDataAsJson();
+        JSONObject titleBasicsDataToProcess = this.generateTitleBasicsData(titleIdToProcess);
+        ArrayList<JSONObject> titlePrincipalsDataToProcess = titlePrincipalsTest.getSingleRecordAsJson();
+        JSONObject titleRatingDataToProcess = this.generateTitleRatingData(titleIdToProcess);
+        LinkedList<JSONObject> nameBasicsDataToProcess = this.generateNameBasicData(titleIdToProcess);
+        JSONObject titleEpisodeDataToProcess = this.generateTitleEpisodeData(titleIdToProcess);
 
-        TitlePrincipals titlePrincipalsTest = new TitlePrincipals(titleIdToProcess);
-        ArrayList<JSONObject> titlePrincipalsData = titlePrincipalsTest.getDataAsJson();
-
-        TitleRating titleRatingTest = new TitleRating(titleIdToProcess);
-        ArrayList<JSONObject> titleRatingData = titleRatingTest.getDataAsJson();
-
-        NameBasics nameBasicsTest = new NameBasics(titleIdToProcess);
-        ArrayList<JSONObject> nameBasicsData = nameBasicsTest.getDataAsJson();
-
-        TitleEpisode titleEpisodeEntity = new TitleEpisode(titleIdToProcess);
-        ArrayList<JSONObject> titleEpisodeData = titleEpisodeEntity.getDataAsJson();
-
-        this.sendDataToStream(titleBasicsData, "title_basics");
-        this.sendDataToStream(titlePrincipalsData, "title_principals");
-        this.sendDataToStream(nameBasicsData, "name_basics");
-        this.sendDataToStream(titleRatingData, "title_ratings");
-        this.sendDataToStream(titleEpisodeData, "title_episodes");
+        this.sendDataToStream(titleBasicsDataToProcess, "title_basics");
+        this.sendDataToStream(titlePrincipalsDataToProcess, "title_principals");
+        this.sendDataToStream(nameBasicsDataToProcess, "name_basics");
+        this.sendDataToStream(titleRatingDataToProcess, "title_ratings");
+        this.sendDataToStream(titleEpisodeDataToProcess, "title_episodes");
 
         DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
