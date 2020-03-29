@@ -3,7 +3,6 @@ package com.datageneration;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public abstract class DataUnit {
@@ -59,7 +58,7 @@ public abstract class DataUnit {
     }
 
     public String getDataFileName() {
-        return this.getClass().getSimpleName() + ".data";
+        return "ObjectDataFiles/" + this.getClass().getSimpleName() + ".data";
     }
 
     public boolean isDataFilePresent() {
@@ -95,9 +94,7 @@ public abstract class DataUnit {
                 }
                 csvReader.close();
                 this.saveFileData();
-            } catch (Exception ex) {
-            }
-            ;
+            } catch (Exception ex) { }
         }
     }
 
@@ -140,7 +137,7 @@ public abstract class DataUnit {
 //        return outputString;
 //    }
 
-    public JSONObject convertToJson(ArrayList<String> rowData) {
+    public JSONObject convertToJson(String[] rowData) {
         return null;
     }
 
