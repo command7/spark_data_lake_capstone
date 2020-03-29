@@ -20,3 +20,4 @@ src/.DS_Store
 src/com/.DS_Store
 src/com/testing/temporary.java
 awsProperties.properties
+ObjectDataFiles/
