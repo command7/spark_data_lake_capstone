@@ -19,11 +19,25 @@ import java.util.Properties;
 public class DataGenerator {
 
     private BasicAWSCredentials awsCredentials;
+    private TitleBasics titleBasicsGenerator;
+    private TitlePrincipals titlePrincipalsGenerator;
+    private TitleRating titleRatingGenerator;
+    private TitleEpisode titleEpisodeGenerator;
+    private NameBasic nameBasicGenerator;
 
     private AmazonKinesisFirehose firehoseClient;
 
     public DataGenerator() {
         this.initializeFirehoseClient();
+        this.initializeDataGenerators();
+    }
+
+    private void initializeDataGenerators() {
+        titleBasicsGenerator = new TitleBasics();
+        titleEpisodeGenerator = new TitleEpisode();
+        titlePrincipalsGenerator = new TitlePrincipals();
+        titleRatingGenerator = new TitleRating();
+        nameBasicGenerator = new NameBasic();
     }
 
     private BasicAWSCredentials getAwsCredentials() {
@@ -32,6 +46,26 @@ public class DataGenerator {
 
     private AmazonKinesisFirehose getFirehoseClient() {
         return this.firehoseClient;
+    }
+
+    public TitleBasics getTitleBasicsGenerator() {
+        return titleBasicsGenerator;
+    }
+
+    public NameBasic getNameBasicGenerator() {
+        return nameBasicGenerator;
+    }
+
+    public TitleEpisode getTitleEpisodeGenerator() {
+        return titleEpisodeGenerator;
+    }
+
+    public TitlePrincipals getTitlePrincipalsGenerator() {
+        return titlePrincipalsGenerator;
+    }
+
+    public TitleRating getTitleRatingGenerator() {
+        return titleRatingGenerator;
     }
 
     private void initializeFirehoseClient() {
