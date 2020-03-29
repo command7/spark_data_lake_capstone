@@ -142,13 +142,9 @@ public abstract class DataUnit {
         return null;
     }
 
-//    public ArrayList<JSONObject> getDataAsJson() {
-//        ArrayList<JSONObject> jsonData = new ArrayList<JSONObject>();
-//        for (int recordIndex = 0; recordIndex < this.getNumberOfRecords(); recordIndex++){
-//            jsonData.add(convertToJson(this.getRowDataFromFile(recordIndex)));
-//        }
-//        return jsonData;
-//    }
+    public JSONObject getDataAsJson(String uniqueIdForRow) {
+        return this.convertToJson(this.getRecord(uniqueIdForRow));
+    }
 
     public void saveFileData() {
         try {
