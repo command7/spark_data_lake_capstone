@@ -3,6 +3,7 @@ package com.datageneration;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public abstract class DataUnit {
@@ -55,6 +56,10 @@ public abstract class DataUnit {
 
     public String getDataFileName() {
         return "ObjectDataFiles/" + this.getClass().getSimpleName() + ".data";
+    }
+
+    public String[] getRecord(String uniqueRowId) {
+        return this.getAllFileData().get(uniqueRowId);
     }
 
     public boolean isDataFilePresent() {
