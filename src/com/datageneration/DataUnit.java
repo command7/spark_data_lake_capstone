@@ -41,10 +41,6 @@ public abstract class DataUnit {
         return "Data/" + fileToOpen;
     }
 
-    public String[] getRowDataFromFile(String itemId) {
-        return this.getAllFileData().get(itemId);
-    }
-
     public void initializeFileData() {
         this.fileData = new TreeMap<String, String[]>();
     }
