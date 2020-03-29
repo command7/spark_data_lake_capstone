@@ -165,7 +165,7 @@ public class DataGenerator {
         this.sendDataToStream(titleRatingDataToProcess, "title_ratings");
         this.sendDataToStream(titleEpisodeDataToProcess, "title_episodes");
 
-//        DataStats.deleteIdFromDatabase(titleIdToProcess);
+        DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
 
     public void start(int numRecordsToProcess) {
@@ -186,7 +186,9 @@ public class DataGenerator {
 
     public static void main(String[] args) {
         DataGenerator test = new DataGenerator();
-        test.processDataForTitleId("tt0000002");
+        test.processDataForTitleId("tt0000001");
+        test.processDataForTitleId("tt0041951");
+        test.processDataForTitleId("tt0044093");
     }
 
 }
