@@ -97,6 +97,26 @@ public class DataGenerator {
         return DataStats.getIdAtIndex(idIndex);
     }
 
+    private JSONObject generateTitleBasicsData(String uniqueId) {
+        return this.getTitleBasicsGenerator().getSingleRecordAsJson(uniqueId);
+    }
+
+    private LinkedList<JSONObject> generateNameBasicData(String uniqueId) {
+        return this.getNameBasicGenerator().getAllRecordsForTitleAsJson(uniqueId);
+    }
+
+    private JSONObject generateTitleRatingData(String uniqueId) {
+        return this.getTitleRatingGenerator().getSingleRecordAsJson(uniqueId);
+    }
+
+    private JSONObject generateTitleEpisodeData(String uniqueId) {
+        return this.getTitleEpisodeGenerator().getSingleRecordAsJson(uniqueId);
+    }
+
+    private LinkedList<JSONObject> generateTitlePrincipalsData(String uniqueId) {
+        return this.getTitlePrincipalsGenerator().getAllRecordsForTitleAsJson(uniqueId);
+    }
+
     public void sendDataToStream(ArrayList<JSONObject> dataRecords,
                                  String streamName) {
         for (JSONObject jsonRowData: dataRecords) {
