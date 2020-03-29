@@ -34,10 +34,10 @@ public class DataGenerator {
 
     private void initializeDataGenerators() {
         titleBasicsGenerator = new TitleBasics();
-        titleEpisodeGenerator = new TitleEpisode();
         titlePrincipalsGenerator = new TitlePrincipals();
         titleRatingGenerator = new TitleRating();
         nameBasicGenerator = new NameBasic();
+        titleEpisodeGenerator = new TitleEpisode();
     }
 
     private BasicAWSCredentials getAwsCredentials() {
@@ -143,11 +143,13 @@ public class DataGenerator {
 
     public void sendDataToStream(JSONObject dataRecord,
                                  String streamName) {
-        PutRecordRequest putRecordRequest = new PutRecordRequest();
-        putRecordRequest.setDeliveryStreamName(streamName);
-        Record record = new Record().withData(ByteBuffer.wrap(dataRecord.toString().getBytes()));
-        putRecordRequest.setRecord(record);
-        this.getFirehoseClient().putRecord(putRecordRequest);
+        if (dataRecord != null) {
+            PutRecordRequest putRecordRequest = new PutRecordRequest();
+            putRecordRequest.setDeliveryStreamName(streamName);
+            Record record = new Record().withData(ByteBuffer.wrap(dataRecord.toString().getBytes()));
+            putRecordRequest.setRecord(record);
+            this.getFirehoseClient().putRecord(putRecordRequest);
+        }
     }
 
     public void processDataForTitleId(String titleIdToProcess) {
@@ -163,7 +165,7 @@ public class DataGenerator {
         this.sendDataToStream(titleRatingDataToProcess, "title_ratings");
         this.sendDataToStream(titleEpisodeDataToProcess, "title_episodes");
 
-        DataStats.deleteIdFromDatabase(titleIdToProcess);
+//        DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
 
     public void start(int numRecordsToProcess) {

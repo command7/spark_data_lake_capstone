@@ -143,7 +143,11 @@ public abstract class DataUnit {
     }
 
     public JSONObject getSingleRecordAsJson(String uniqueIdForRow) {
-        return this.convertToJson(this.getRecord(uniqueIdForRow));
+        String [] rowData = this.getRecord(uniqueIdForRow);
+        if (rowData == null) {
+            return null;
+        }
+        return this.convertToJson(rowData);
     }
 
     public void saveFileData() {
