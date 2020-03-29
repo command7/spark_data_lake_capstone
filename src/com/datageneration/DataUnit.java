@@ -142,7 +142,7 @@ public abstract class DataUnit {
         return null;
     }
 
-    public JSONObject getDataAsJson(String uniqueIdForRow) {
+    public JSONObject getSingleRecordAsJson(String uniqueIdForRow) {
         return this.convertToJson(this.getRecord(uniqueIdForRow));
     }
 
