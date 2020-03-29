@@ -26,15 +26,15 @@ public class NameBasic extends DataUnit{
 //    }
 
         @Override
-        public JSONObject convertToJson(ArrayList<String> rowData) {
+        public JSONObject convertToJson(String[] rowData) {
             JSONObject dataInJson = new JSONObject();
 
-            this.insertIntoJsonObject(dataInJson, "nconst", rowData.get(0), "string");
-            this.insertIntoJsonObject(dataInJson, "primaryName", rowData.get(1), "string");
-            this.insertIntoJsonObject(dataInJson, "birthYear", rowData.get(2), "integer");
-            this.insertIntoJsonObject(dataInJson, "deathYear", rowData.get(3), "integer");
-            this.insertIntoJsonObject(dataInJson, "primaryProfession", rowData.get(4), "string");
-            this.insertIntoJsonObject(dataInJson, "knownForTitles", rowData.get(5), "string");
+            this.insertIntoJsonObject(dataInJson, "nconst", rowData[0], "string");
+            this.insertIntoJsonObject(dataInJson, "primaryName", rowData[1], "string");
+            this.insertIntoJsonObject(dataInJson, "birthYear", rowData[2], "integer");
+            this.insertIntoJsonObject(dataInJson, "deathYear", rowData[3], "integer");
+            this.insertIntoJsonObject(dataInJson, "primaryProfession", rowData[4], "string");
+            this.insertIntoJsonObject(dataInJson, "knownForTitles", rowData[5], "string");
 
             return dataInJson;
         }

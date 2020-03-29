@@ -11,12 +11,12 @@ public class TitleRating extends DataUnit {
     }
 
     @Override
-    public JSONObject convertToJson(ArrayList<String> rowData) {
+    public JSONObject convertToJson(String[] rowData) {
         JSONObject dataInJson = new JSONObject();
 
-        this.insertIntoJsonObject(dataInJson, "tconst", rowData.get(0), "string");
-        this.insertIntoJsonObject(dataInJson, "averageRating", rowData.get(1), "decimal");
-        this.insertIntoJsonObject(dataInJson, "numVotes", rowData.get(2), "decimal");
+        this.insertIntoJsonObject(dataInJson, "tconst", rowData[0], "string");
+        this.insertIntoJsonObject(dataInJson, "averageRating", rowData[1], "decimal");
+        this.insertIntoJsonObject(dataInJson, "numVotes", rowData[2], "decimal");
 
         return dataInJson;
     }
