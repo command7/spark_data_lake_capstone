@@ -152,7 +152,7 @@ public class DataGenerator {
 
     public void processDataForTitleId(String titleIdToProcess) {
         JSONObject titleBasicsDataToProcess = this.generateTitleBasicsData(titleIdToProcess);
-        ArrayList<JSONObject> titlePrincipalsDataToProcess = titlePrincipalsTest.getSingleRecordAsJson();
+        LinkedList<JSONObject> titlePrincipalsDataToProcess = this.generateTitlePrincipalsData(titleIdToProcess);
         JSONObject titleRatingDataToProcess = this.generateTitleRatingData(titleIdToProcess);
         LinkedList<JSONObject> nameBasicsDataToProcess = this.generateNameBasicData(titleIdToProcess);
         JSONObject titleEpisodeDataToProcess = this.generateTitleEpisodeData(titleIdToProcess);
