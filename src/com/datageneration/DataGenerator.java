@@ -11,12 +11,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.Properties;
-import java.time.Duration;
-import java.time.Instant;
+import java.util.*;
 
 public class DataGenerator {
 
@@ -96,6 +91,22 @@ public class DataGenerator {
 
     public void setTitleBasicsDirectoryName(String _dirName) {
         this.titleBasicsDirectoryName = _dirName;
+    }
+
+    public File getTitlePrincipalsDirectoryAsFile() {
+        return new File(this.getTitlePrincipalsDirectoryName());
+    }
+    public File getTitleBasicsDirectoryAsFile() {
+        return new File(this.getTitleBasicsDirectoryName());
+    }
+    public File getTitleEpisodesDirectoryAsFile() {
+        return new File(this.getTitleEpisodeDirectoryName());
+    }
+    public File getNameBasicsDirectoryAsFile() {
+        return new File(this.getNameBasicsDirectoryName());
+    }
+    public File getTitleRatingsDirectoryAsFile() {
+        return new File(this.getTitleRatingDirectoryName());
     }
 
     public void setTitlePrincipalsDirectoryName (String _dirName) {
@@ -280,6 +291,7 @@ public class DataGenerator {
         }
         catch (Exception e) {
             e.printStackTrace();
+            System.exit(7);
         }
     }
 
@@ -293,6 +305,7 @@ public class DataGenerator {
         }
         catch (Exception e) {
             e.printStackTrace();
+            System.exit(7);
         }
     }
 
@@ -306,6 +319,7 @@ public class DataGenerator {
         }
         catch (Exception e) {
             e.printStackTrace();
+            System.exit(7);
         }
     }
 
@@ -317,6 +331,7 @@ public class DataGenerator {
         }
         catch (Exception e) {
             e.printStackTrace();
+            System.exit(7);
         }
     }
 
@@ -329,6 +344,7 @@ public class DataGenerator {
             }
             catch (Exception e) {
                 e.printStackTrace();
+                System.exit(7);
             }
         }
     }
@@ -349,6 +365,14 @@ public class DataGenerator {
         DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
 
+    private void deleteFilesInDirectory(File directoryToEmpty) throws IOException{
+        if (directoryToEmpty.isDirectory())
+            for (File fileInDirectory : directoryToEmpty.listFiles())
+                deleteFilesInDirectory(fileInDirectory);
+        else
+            directoryToEmpty.delete();
+    }
+
     public void start(int numRecordsToProcess) {
         for (int recordCount = 0; recordCount < numRecordsToProcess; recordCount++) {
             String currentTitleId = this.getTitleToProcess();
@@ -365,15 +389,30 @@ public class DataGenerator {
         }
     }
 
+    public void startFromScratch() {
+        try {
+            this.deleteFilesInDirectory(this.getTitleBasicsDirectoryAsFile());
+            this.deleteFilesInDirectory(this.getNameBasicsDirectoryAsFile());
+            this.deleteFilesInDirectory(this.getTitleEpisodesDirectoryAsFile());
+            this.deleteFilesInDirectory(this.getTitlePrincipalsDirectoryAsFile());
+            this.deleteFilesInDirectory(this.getTitleRatingsDirectoryAsFile());
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        DataStats.resetDb();
+        start();
+    }
+
     public static void main(String[] args) {
 //        Instant loadingStart = Instant.now();
         DataGenerator realTimeDataGenerator = new DataGenerator();
-        realTimeDataGenerator.start();
-
+        realTimeDataGenerator.startFromScratch();
+//        tt0054477
 //        Instant loadingEnd = Instant.now();
 //        Duration loadingInterval = Duration.between(loadingStart, loadingEnd);
 //        System.out.println("Load completed in " + loadingInterval.getSeconds());
-//        test.processDataForTitleId("tt0000001");
+//        realTimeDataGenerator.processDataForTitleId("tt0526438");
 //        test.processDataForTitleId("tt0041951");
 //        Instant topFetchStart = Instant.now();
 //        test.processDataForTitleId("tt0044093");
