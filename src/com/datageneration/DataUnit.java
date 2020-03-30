@@ -3,7 +3,6 @@ package com.datageneration;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public abstract class DataUnit {
@@ -147,6 +146,7 @@ public abstract class DataUnit {
         if (rowData == null) {
             return null;
         }
+        this.removeRecordFromMemory(uniqueIdForRow);
         return this.convertToJson(rowData);
     }
 
@@ -172,6 +172,10 @@ public abstract class DataUnit {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void removeRecordFromMemory(String idToDelete) {
+        this.getAllFileData().remove(idToDelete);
     }
 
 }

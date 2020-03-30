@@ -16,8 +16,10 @@ public class TitlePrincipals extends DataUnit{
         LinkedList<JSONObject> dataAsJsonObjects = new LinkedList<JSONObject>();
         ArrayList<String> nameIds = DataStats.getNameConstsForTitle(uniqueIdForRow);
         for (String nameId: nameIds) {
-            JSONObject individualNameData = this.getSingleRecordAsJson(uniqueIdForRow + "|" + nameId);
+            String principalsRetrievalId = uniqueIdForRow + "|" + nameId;
+            JSONObject individualNameData = this.getSingleRecordAsJson(principalsRetrievalId);
             dataAsJsonObjects.addLast(individualNameData);
+            this.removeRecordFromMemory(principalsRetrievalId);
         }
         return dataAsJsonObjects;
     }
