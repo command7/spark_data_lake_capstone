@@ -17,7 +17,6 @@ public class NameBasic extends DataUnit{
         for (String nameId: nameIds) {
             JSONObject individualNameData = this.getSingleRecordAsJson(nameId);
             dataAsJsonObjects.addLast(individualNameData);
-            this.removeRecordFromMemory(nameId);
         }
 
         return dataAsJsonObjects;
