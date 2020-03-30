@@ -19,7 +19,6 @@ public class TitlePrincipals extends DataUnit{
             String principalsRetrievalId = uniqueIdForRow + "|" + nameId;
             JSONObject individualNameData = this.getSingleRecordAsJson(principalsRetrievalId);
             dataAsJsonObjects.addLast(individualNameData);
-            this.removeRecordFromMemory(principalsRetrievalId);
         }
         return dataAsJsonObjects;
     }
