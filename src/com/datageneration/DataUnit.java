@@ -147,6 +147,7 @@ public abstract class DataUnit {
         if (rowData == null) {
             return null;
         }
+        this.removeRecordFromMemory(uniqueIdForRow);
         return this.convertToJson(rowData);
     }
 
@@ -174,4 +175,7 @@ public abstract class DataUnit {
         }
     }
 
+    public void removeRecordFromMemory(String idToDelete) {
+        this.getAllFileData().remove(idToDelete);
+    }
 }
