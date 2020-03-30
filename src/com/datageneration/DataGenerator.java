@@ -9,12 +9,14 @@ import com.amazonaws.services.kinesisfirehose.model.PutRecordRequest;
 import com.amazonaws.services.kinesisfirehose.model.Record;
 import org.json.JSONObject;
 
-import java.io.FileInputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Properties;
+import java.time.Duration;
+import java.time.Instant;
 
 public class DataGenerator {
 
@@ -24,12 +26,24 @@ public class DataGenerator {
     private TitleRating titleRatingGenerator;
     private TitleEpisode titleEpisodeGenerator;
     private NameBasic nameBasicGenerator;
+    private String titleBasicsDirectoryName;
+    private String titlePrincipalsDirectoryName;
+    private String titleRatingDirectoryName;
+    private String titleEpisodeDirectoryName;
+    private String nameBasicsDirectoryName;
+    private BufferedWriter titleBasicsWriter;
+    private BufferedWriter titlePrincipalsWriter;
+    private BufferedWriter titleRatingWriter;
+    private BufferedWriter titleEpisodeWriter;
+    private BufferedWriter nameBasicWriter;
 
     private AmazonKinesisFirehose firehoseClient;
 
     public DataGenerator() {
-        this.initializeFirehoseClient();
+//        this.initializeFirehoseClient();
         this.initializeDataGenerators();
+        this.initializeDirectoryNames();
+        this.initializeDirectoryWriters();
     }
 
     private void initializeDataGenerators() {
@@ -38,6 +52,112 @@ public class DataGenerator {
         titleRatingGenerator = new TitleRating();
         nameBasicGenerator = new NameBasic();
         titleEpisodeGenerator = new TitleEpisode();
+    }
+
+    public BufferedWriter getTitleBasicsWriter() {
+        return titleBasicsWriter;
+    }
+
+    public BufferedWriter getTitlePrincipalsWriter() {
+        return titlePrincipalsWriter;
+    }
+
+    public BufferedWriter getNameBasicWriter() {
+        return nameBasicWriter;
+    }
+
+    public BufferedWriter getTitleEpisodeWriter() {
+        return titleEpisodeWriter;
+    }
+
+    public BufferedWriter getTitleRatingWriter() {
+        return titleRatingWriter;
+    }
+
+    public String getTitleBasicsDirectoryName() {
+        return titleBasicsDirectoryName;
+    }
+
+    public String getTitlePrincipalsDirectoryName() {
+        return titlePrincipalsDirectoryName;
+    }
+
+    public String getNameBasicsDirectoryName() {
+        return nameBasicsDirectoryName;
+    }
+
+    public String getTitleEpisodeDirectoryName() {
+        return titleEpisodeDirectoryName;
+    }
+
+    public String getTitleRatingDirectoryName() {
+        return titleRatingDirectoryName;
+    }
+
+    public void setTitleBasicsDirectoryName(String _dirName) {
+        this.titleBasicsDirectoryName = _dirName;
+    }
+
+    public void setTitlePrincipalsDirectoryName (String _dirName) {
+        this.titlePrincipalsDirectoryName = _dirName;
+    }
+
+    public void setTitleRatingDirectoryName (String _dirName) {
+        this.titleRatingDirectoryName = _dirName;
+    }
+
+    public void setTitleEpisodeDirectoryName (String _dirName) {
+        this.titleEpisodeDirectoryName = _dirName;
+    }
+
+    public void setNameBasicsDirectoryName (String _dirName) {
+        this.nameBasicsDirectoryName  = _dirName;
+    }
+
+    private void initializeDirectoryNames() {
+        this.setTitleBasicsDirectoryName("RealTimeData/TitleBasics/titleBasicsData.json");
+        this.setTitleEpisodeDirectoryName("RealTimeData/TitleEpisodes/titleEpisodeData.json");
+        this.setTitleRatingDirectoryName("RealTimeData/TitleRatings/titleRatingData.json");
+        this.setTitlePrincipalsDirectoryName("RealTimeData/TitlePrincipals/titlePrincipalsData.json");
+        this.setNameBasicsDirectoryName("RealTimeData/NameBasics/nameBasicsData.json");
+    }
+
+    private void initializeTitleBasicsWriter() throws IOException {
+        this.titleBasicsWriter = new BufferedWriter(
+                new FileWriter(new File(this.getTitleBasicsDirectoryName())));
+    }
+
+    private void initializeTitleRatingWriter() throws IOException {
+        this.titleRatingWriter = new BufferedWriter(
+                new FileWriter(new File(this.getTitleRatingDirectoryName())));
+    }
+
+    private void initializeTitleEpisodeWriter() throws IOException {
+        this.titleEpisodeWriter = new BufferedWriter(
+                new FileWriter(new File(this.getTitleEpisodeDirectoryName())));
+    }
+
+    private void initializeTitlePrincipalsWriter() throws IOException {
+        this.titlePrincipalsWriter = new BufferedWriter(
+                new FileWriter(new File(this.getTitlePrincipalsDirectoryName())));
+    }
+
+    private void initializeNameBasicsWriter() throws IOException {
+        this.nameBasicWriter = new BufferedWriter(
+                new FileWriter(new File(this.getNameBasicsDirectoryName())));
+    }
+
+    private void initializeDirectoryWriters() {
+        try {
+            this.initializeTitleBasicsWriter();
+            this.initializeNameBasicsWriter();
+            this.initializeTitleEpisodeWriter();
+            this.initializeTitlePrincipalsWriter();
+            this.initializeTitleRatingWriter();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private BasicAWSCredentials getAwsCredentials() {
@@ -68,7 +188,7 @@ public class DataGenerator {
         return titleRatingGenerator;
     }
 
-    private void initializeFirehoseClient() {
+    private void initializeFireHoseClient() {
         Properties awsProperties = new Properties();
         try {
             FileInputStream propertyReader = new FileInputStream("awsProperties.properties");
@@ -152,6 +272,67 @@ public class DataGenerator {
         }
     }
 
+    private void writeTitleBasicsDataToDirectory(JSONObject dataToWrite) {
+        try {
+            this.getTitleBasicsWriter().write(dataToWrite.toString());
+            this.getTitleBasicsWriter().newLine();
+            this.getTitleBasicsWriter().flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeNameBasicsDataToDirectory(LinkedList<JSONObject> dataToWrite) {
+        try {
+            for (JSONObject eachDataRecord : dataToWrite) {
+                this.getNameBasicWriter().write(eachDataRecord.toString());
+                this.getNameBasicWriter().newLine();
+                this.getNameBasicWriter().flush();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeTitlePrincipalsDataToDirectory(LinkedList<JSONObject> dataToWrite) {
+        try {
+            for (JSONObject eachDataRecord : dataToWrite) {
+                this.getTitlePrincipalsWriter().write(eachDataRecord.toString());
+                this.getTitlePrincipalsWriter().newLine();
+                this.getTitlePrincipalsWriter().flush();
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeTitleRatingDataToDirectory(JSONObject dataToWrite) {
+        try {
+            this.getTitleRatingWriter().write(dataToWrite.toString());
+            this.getTitleRatingWriter().newLine();
+            this.getTitleRatingWriter().flush();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeTitleEpisodeDataToDirectory(JSONObject dataToWrite) {
+        if (dataToWrite != null) {
+            try {
+                this.getTitleEpisodeWriter().write(dataToWrite.toString());
+                this.getTitleEpisodeWriter().newLine();
+                this.getTitleEpisodeWriter().flush();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void processDataForTitleId(String titleIdToProcess) {
         JSONObject titleBasicsDataToProcess = this.generateTitleBasicsData(titleIdToProcess);
         LinkedList<JSONObject> titlePrincipalsDataToProcess = this.generateTitlePrincipalsData(titleIdToProcess);
@@ -159,11 +340,11 @@ public class DataGenerator {
         LinkedList<JSONObject> nameBasicsDataToProcess = this.generateNameBasicData(titleIdToProcess);
         JSONObject titleEpisodeDataToProcess = this.generateTitleEpisodeData(titleIdToProcess);
 
-        this.sendDataToStream(titleBasicsDataToProcess, "title_basics");
-        this.sendDataToStream(titlePrincipalsDataToProcess, "title_principals");
-        this.sendDataToStream(nameBasicsDataToProcess, "name_basics");
-        this.sendDataToStream(titleRatingDataToProcess, "title_ratings");
-        this.sendDataToStream(titleEpisodeDataToProcess, "title_episodes");
+        this.writeTitleBasicsDataToDirectory(titleBasicsDataToProcess);
+        this.writeTitlePrincipalsDataToDirectory(titlePrincipalsDataToProcess);
+        this.writeTitleRatingDataToDirectory(titleRatingDataToProcess);
+        this.writeNameBasicsDataToDirectory(nameBasicsDataToProcess);
+        this.writeTitleEpisodeDataToDirectory(titleEpisodeDataToProcess);
 
         DataStats.deleteIdFromDatabase(titleIdToProcess);
     }
@@ -185,10 +366,25 @@ public class DataGenerator {
     }
 
     public static void main(String[] args) {
-        DataGenerator test = new DataGenerator();
-        test.processDataForTitleId("tt0000001");
-        test.processDataForTitleId("tt0041951");
-        test.processDataForTitleId("tt0044093");
+//        Instant loadingStart = Instant.now();
+        DataGenerator realTimeDataGenerator = new DataGenerator();
+        realTimeDataGenerator.start();
+
+//        Instant loadingEnd = Instant.now();
+//        Duration loadingInterval = Duration.between(loadingStart, loadingEnd);
+//        System.out.println("Load completed in " + loadingInterval.getSeconds());
+//        test.processDataForTitleId("tt0000001");
+//        test.processDataForTitleId("tt0041951");
+//        Instant topFetchStart = Instant.now();
+//        test.processDataForTitleId("tt0044093");
+//        Instant topFetchEnd = Instant.now();
+//        Duration topFetchInterval = Duration.between(topFetchStart, topFetchEnd);
+//        System.out.println("Top Fetch completed in " + topFetchInterval.getSeconds());
+//        Instant bottomFetchStart = Instant.now();
+//        test.processDataForTitleId("tt0949232");
+//        Instant bottomFetchEnd = Instant.now();
+//        Duration bottomFetchInterval = Duration.between(bottomFetchStart, bottomFetchEnd);
+//        System.out.println("Bottom Fetch completed in " + bottomFetchInterval.getSeconds());
     }
 
 }
