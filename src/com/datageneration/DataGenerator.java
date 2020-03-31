@@ -135,27 +135,27 @@ public class DataGenerator {
 
     private void initializeTitleBasicsWriter() throws IOException {
         this.titleBasicsWriter = new BufferedWriter(
-                new FileWriter(new File(this.getTitleBasicsDirectoryName())));
+                new FileWriter(new File(this.getTitleBasicsDirectoryName()), true));
     }
 
     private void initializeTitleRatingWriter() throws IOException {
         this.titleRatingWriter = new BufferedWriter(
-                new FileWriter(new File(this.getTitleRatingDirectoryName())));
+                new FileWriter(new File(this.getTitleRatingDirectoryName()), true));
     }
 
     private void initializeTitleEpisodeWriter() throws IOException {
         this.titleEpisodeWriter = new BufferedWriter(
-                new FileWriter(new File(this.getTitleEpisodeDirectoryName())));
+                new FileWriter(new File(this.getTitleEpisodeDirectoryName()), true));
     }
 
     private void initializeTitlePrincipalsWriter() throws IOException {
         this.titlePrincipalsWriter = new BufferedWriter(
-                new FileWriter(new File(this.getTitlePrincipalsDirectoryName())));
+                new FileWriter(new File(this.getTitlePrincipalsDirectoryName()), true));
     }
 
     private void initializeNameBasicsWriter() throws IOException {
         this.nameBasicWriter = new BufferedWriter(
-                new FileWriter(new File(this.getNameBasicsDirectoryName())));
+                new FileWriter(new File(this.getNameBasicsDirectoryName()), true));
     }
 
     private void initializeDirectoryWriters() {
