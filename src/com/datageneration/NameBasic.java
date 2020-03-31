@@ -19,7 +19,7 @@ public class NameBasic extends DataUnit{
     private void initializeErrorWriter() {
         try {
             this.errorWriter = new BufferedWriter(
-                    new FileWriter(new File("RealTimeData/Errors/NameBasicsErrors.txt")));
+                    new FileWriter(new File("RealTimeData/Errors/NameBasicsErrors.txt"), true));
         }
         catch (Exception ex) {
             ex.printStackTrace();
