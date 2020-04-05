@@ -220,7 +220,7 @@ public class DataGenerator {
 
     public int getRandomNumber() {
        int endingNumber = DataStats.getRemainingRecords();
-        return (int)(Math.random()*((endingNumber)+1));
+        return (int)(Math.random()*((endingNumber -1)+1));
     }
 
     public String getTitleToProcess() {
@@ -284,26 +284,28 @@ public class DataGenerator {
     }
 
     private void writeTitleBasicsDataToDirectory(JSONObject dataToWrite) {
-        try {
-            this.getTitleBasicsWriter().write(dataToWrite.toString());
-            this.getTitleBasicsWriter().newLine();
-            this.getTitleBasicsWriter().flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.exit(7);
+        if (dataToWrite != null) {
+            try {
+                this.getTitleBasicsWriter().write(dataToWrite.toString());
+                this.getTitleBasicsWriter().newLine();
+                this.getTitleBasicsWriter().flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(7);
+            }
         }
     }
 
     private void writeNameBasicsDataToDirectory(LinkedList<JSONObject> dataToWrite) {
         try {
             for (JSONObject eachDataRecord : dataToWrite) {
-                this.getNameBasicWriter().write(eachDataRecord.toString());
-                this.getNameBasicWriter().newLine();
-                this.getNameBasicWriter().flush();
+                if (eachDataRecord != null) {
+                    this.getNameBasicWriter().write(eachDataRecord.toString());
+                    this.getNameBasicWriter().newLine();
+                    this.getNameBasicWriter().flush();
+                }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(7);
         }
@@ -312,9 +314,11 @@ public class DataGenerator {
     private void writeTitlePrincipalsDataToDirectory(LinkedList<JSONObject> dataToWrite) {
         try {
             for (JSONObject eachDataRecord : dataToWrite) {
-                this.getTitlePrincipalsWriter().write(eachDataRecord.toString());
-                this.getTitlePrincipalsWriter().newLine();
-                this.getTitlePrincipalsWriter().flush();
+                if (eachDataRecord != null) {
+                    this.getTitlePrincipalsWriter().write(eachDataRecord.toString());
+                    this.getTitlePrincipalsWriter().newLine();
+                    this.getTitlePrincipalsWriter().flush();
+                }
             }
         }
         catch (Exception e) {
@@ -324,14 +328,15 @@ public class DataGenerator {
     }
 
     private void writeTitleRatingDataToDirectory(JSONObject dataToWrite) {
-        try {
-            this.getTitleRatingWriter().write(dataToWrite.toString());
-            this.getTitleRatingWriter().newLine();
-            this.getTitleRatingWriter().flush();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.exit(7);
+        if (dataToWrite != null) {
+            try {
+                this.getTitleRatingWriter().write(dataToWrite.toString());
+                this.getTitleRatingWriter().newLine();
+                this.getTitleRatingWriter().flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(7);
+            }
         }
     }
 
@@ -350,25 +355,68 @@ public class DataGenerator {
     }
 
     public void processDataForTitleId(String titleIdToProcess) {
-        JSONObject titleBasicsDataToProcess = this.generateTitleBasicsData(titleIdToProcess);
-        LinkedList<JSONObject> titlePrincipalsDataToProcess = this.generateTitlePrincipalsData(titleIdToProcess);
-        JSONObject titleRatingDataToProcess = this.generateTitleRatingData(titleIdToProcess);
-        LinkedList<JSONObject> nameBasicsDataToProcess = this.generateNameBasicData(titleIdToProcess);
-        JSONObject titleEpisodeDataToProcess = this.generateTitleEpisodeData(titleIdToProcess);
+        if (titleIdToProcess != null) {
+            JSONObject titleBasicsDataToProcess = this.generateTitleBasicsData(titleIdToProcess);
+            LinkedList<JSONObject> titlePrincipalsDataToProcess = this.generateTitlePrincipalsData(titleIdToProcess);
+            JSONObject titleRatingDataToProcess = this.generateTitleRatingData(titleIdToProcess);
+            LinkedList<JSONObject> nameBasicsDataToProcess = this.generateNameBasicData(titleIdToProcess);
+            JSONObject titleEpisodeDataToProcess = this.generateTitleEpisodeData(titleIdToProcess);
 
-        this.writeTitleBasicsDataToDirectory(titleBasicsDataToProcess);
-        this.writeTitlePrincipalsDataToDirectory(titlePrincipalsDataToProcess);
-        this.writeTitleRatingDataToDirectory(titleRatingDataToProcess);
-        this.writeNameBasicsDataToDirectory(nameBasicsDataToProcess);
-        this.writeTitleEpisodeDataToDirectory(titleEpisodeDataToProcess);
+            System.out.println("\n" + titleIdToProcess);
 
-        DataStats.deleteIdFromDatabase(titleIdToProcess);
+
+            System.out.println("TitleBasics :");
+            if (titleBasicsDataToProcess != null) {
+                System.out.println(titleBasicsDataToProcess.toString());
+            } else {
+                System.out.println("Null");
+            }
+            System.out.println("TitleRating :");
+            if (titleRatingDataToProcess != null) {
+                System.out.println(titleRatingDataToProcess.toString());
+            } else {
+                System.out.println("Null");
+            }
+            System.out.println("TitleEpisode :");
+            if (titleEpisodeDataToProcess != null) {
+                System.out.println(titleEpisodeDataToProcess.toString());
+            } else {
+                System.out.println("Null");
+            }
+            System.out.println("Title Principals");
+            for (JSONObject dataToProcess : titlePrincipalsDataToProcess) {
+                if (dataToProcess != null) {
+                    System.out.println(dataToProcess.toString());
+                } else {
+                    System.out.println("Null");
+                }
+            }
+            System.out.println("NameBasics");
+            for (JSONObject dataToProcess : nameBasicsDataToProcess) {
+                if (dataToProcess != null) {
+                    System.out.println(dataToProcess.toString());
+                } else {
+                    System.out.println("Null");
+                }
+            }
+            System.out.println("\n\n");
+            this.writeTitleBasicsDataToDirectory(titleBasicsDataToProcess);
+            this.writeTitlePrincipalsDataToDirectory(titlePrincipalsDataToProcess);
+            this.writeTitleRatingDataToDirectory(titleRatingDataToProcess);
+            this.writeNameBasicsDataToDirectory(nameBasicsDataToProcess);
+            this.writeTitleEpisodeDataToDirectory(titleEpisodeDataToProcess);
+
+            DataStats.deleteIdFromDatabase(titleIdToProcess);
+        }
     }
 
     private void deleteFilesInDirectory(File directoryToEmpty) throws IOException{
-        if (directoryToEmpty.isDirectory())
-            for (File fileInDirectory : directoryToEmpty.listFiles())
+        if (directoryToEmpty.isDirectory()) {
+            for (File fileInDirectory : directoryToEmpty.listFiles()) {
+                System.out.println(fileInDirectory.getAbsolutePath());
                 deleteFilesInDirectory(fileInDirectory);
+            }
+        }
         else
             directoryToEmpty.delete();
     }
@@ -390,16 +438,16 @@ public class DataGenerator {
     }
 
     public void startFromScratch() {
-        try {
-            this.deleteFilesInDirectory(this.getTitleBasicsDirectoryAsFile());
-            this.deleteFilesInDirectory(this.getNameBasicsDirectoryAsFile());
-            this.deleteFilesInDirectory(this.getTitleEpisodesDirectoryAsFile());
-            this.deleteFilesInDirectory(this.getTitlePrincipalsDirectoryAsFile());
-            this.deleteFilesInDirectory(this.getTitleRatingsDirectoryAsFile());
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            this.deleteFilesInDirectory(this.getTitleBasicsDirectoryAsFile());
+//            this.deleteFilesInDirectory(this.getNameBasicsDirectoryAsFile());
+//            this.deleteFilesInDirectory(this.getTitleEpisodesDirectoryAsFile());
+//            this.deleteFilesInDirectory(this.getTitlePrincipalsDirectoryAsFile());
+//            this.deleteFilesInDirectory(this.getTitleRatingsDirectoryAsFile());
+//        }
+//        catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
         DataStats.resetDb();
         start();
     }
@@ -407,12 +455,12 @@ public class DataGenerator {
     public static void main(String[] args) {
 //        Instant loadingStart = Instant.now();
         DataGenerator realTimeDataGenerator = new DataGenerator();
-        realTimeDataGenerator.startFromScratch();
+        DataStats.resetDb();
+        realTimeDataGenerator.start();
 //        tt0054477
 //        Instant loadingEnd = Instant.now();
 //        Duration loadingInterval = Duration.between(loadingStart, loadingEnd);
 //        System.out.println("Load completed in " + loadingInterval.getSeconds());
-//        realTimeDataGenerator.processDataForTitleId("tt0526438");
 //        test.processDataForTitleId("tt0041951");
 //        Instant topFetchStart = Instant.now();
 //        test.processDataForTitleId("tt0044093");
